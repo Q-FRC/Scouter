@@ -6,6 +6,10 @@
 
 #include "MatchData.h"
 
+#include "qlabel.h"
+#include "qlineedit.h"
+#include "qpushbutton.h"
+
 namespace Ui {
 class TeamInfo;
 }
@@ -42,6 +46,7 @@ signals:
 
 private:
     Ui::TeamInfo *ui;
+
     QMap<AllianceStation, QRadioButton *> m_buttonMap;
 };
 

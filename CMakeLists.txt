@@ -59,8 +59,6 @@ set(PROJECT_SOURCES
     tba/Match.h tba/Match.cpp
 
     include/MatchData.h src/MatchData.cpp
-
-    Schedule.qrc
 )
 
 if(WIN32)
@@ -73,7 +71,7 @@ if(ANDROID)
 endif()
 
 if(EMSCRIPTEN)
-    set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/WebTeamInfo.ui)
+    set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/WebTeamInfo.ui Schedule.qrc)
 else()
     set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/TeamInfo.ui)
 endif()

@@ -19,8 +19,12 @@ public:
     int value();
 
     void setMaximum(int max);
+    void setMinimum(int min);
 
     void setWrapping(bool wrap);
+
+signals:
+    void valueChanged(int value);
 
 private:
     Ui::BetterSpinBox *ui;

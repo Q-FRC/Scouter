@@ -1955,7 +1955,7 @@ color: white;
     </widget>
    </item>
    <item row="6" column="0" colspan="2">
-    <widget class="QSpinBox" name="matchNumber">
+    <widget class="BetterSpinBox" name="matchNumber">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>1</horstretch>
@@ -3551,6 +3551,13 @@ color: white;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BetterSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>BetterSpinBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
