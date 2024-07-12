@@ -32,6 +32,14 @@ public slots:
     void setTeam();
     void setStation();
 
+#ifndef Q_OS_WASM
+    void downloadSchedule();
+
+signals:
+    void reloadSchedule();
+#endif
+
+
 private:
     Ui::TeamInfo *ui;
     QMap<AllianceStation, QRadioButton *> m_buttonMap;

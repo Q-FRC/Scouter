@@ -4,7 +4,20 @@
 #include <QDir>
 
 MatchData::MatchData() {
+    reloadSchedule();
+}
+
+Schedule MatchData::schedule() {
+    return m_schedule;
+}
+
+void MatchData::reloadSchedule()
+{
+#ifdef Q_OS_WASM
     QFile file(":/Schedule");
+#else
+    QFile file(QDir::homePath() + "/schedule.json");
+#endif
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qCritical() << "Bruh";
@@ -15,9 +28,4 @@ MatchData::MatchData() {
     QJsonDocument doc = QJsonDocument::fromJson(data);
 
     m_schedule = Schedule(doc.array());
-
-}
-
-Schedule MatchData::schedule() {
-    return m_schedule;
 }

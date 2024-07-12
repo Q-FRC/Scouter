@@ -199,6 +199,13 @@ jobs:
       # UPLOAD BUILDS
       ##
 
+    - name: Wasm funniness
+      if: matrix.qt_arch == 'wasm_singlethread'
+      shell: bash
+      run: |
+        cd ${{ env.BUILD_DIR }}
+        cp QFRCScouter.html index.html
+
     - name: Upload Pages WASM
       if: matrix.qt_arch == 'wasm_singlethread'
       uses: actions/upload-pages-artifact@v3.0.0
