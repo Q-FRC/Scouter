@@ -12,9 +12,6 @@ public:
     MatchData();
 
     Schedule schedule();
-
-public slots:
-    void reloadSchedule();
 };
 
 #endif // MATCHDATA_H

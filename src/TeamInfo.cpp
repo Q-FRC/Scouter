@@ -2,10 +2,6 @@
 #include "ui_TeamInfo.h"
 
 #include <QDir>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QNetworkAccessManager>
-#include <QMessageBox>
 
 #include <QKeyEvent>
 
@@ -34,41 +30,6 @@ int TeamInfo::teamNumber() {
 
 int TeamInfo::matchNumber() {
     return ui->matchNumber->value();
-}
-
-void TeamInfo::downloadSchedule() {
-    QString eventCode = ui->event->text();
-
-    QDir targetDir = QDir::home();
-
-    QNetworkRequest request = QNetworkRequest("https://www.thebluealliance.com/api/v3/event/" + eventCode + "/matches/simple");
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader("X-TBA-Auth-Key", TBA_AUTH_KEY);
-
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-
-    QNetworkReply *reply = manager->get(request);
-
-    connect(reply, &QNetworkReply::readyRead, this, [this, targetDir, reply] {
-        QByteArray data = reply->readAll();
-        QFile file(targetDir.path() + "/schedule.json");
-
-        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            qCritical() << "badness";
-        }
-
-        file.write(data);
-        file.close();
-        m_matchData.reloadSchedule();
-    });
-
-    connect(reply, &QNetworkReply::errorOccurred, this, [this](QNetworkReply::NetworkError) {
-        QMessageBox::critical(this, "Network Error", "A critical network error occurred; check to make sure you're connected and the event code is correct.");
-    });
-
-    connect(reply, &QNetworkReply::sslErrors, this, [this](QList<QSslError>) {
-        QMessageBox::critical(this, "Network Error", "A critical network error occurred; check to make sure you're connected and the event code is correct.");
-    });
 }
 
 QString TeamInfo::initials() {
