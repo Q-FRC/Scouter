@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "ui_MainWindow.h"
 
-class MainWindow : public QMainWindow, Ui::MainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -19,8 +19,10 @@ public slots:
     void next();
     void back();
     void backToStart();
+    void backToQRCode();
 
 private:
+    Ui::MainWindow *ui;
     int currentIdx = 0;
 
     void keyReleaseEvent(QKeyEvent *event) override;

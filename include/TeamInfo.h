@@ -6,10 +6,6 @@
 
 #include "MatchData.h"
 
-#include "qlabel.h"
-#include "qlineedit.h"
-#include "qpushbutton.h"
-
 namespace Ui {
 class TeamInfo;
 }
@@ -35,14 +31,18 @@ public:
 public slots:
     void setTeam();
     void setStation();
+    void incrementMatch();
+    void decrementMatch();
 
 #ifndef Q_OS_WASM
     void downloadSchedule();
 
 signals:
     void reloadSchedule();
+#else
+signals:
 #endif
-
+    void teamNumberChanged(int team);
 
 private:
     Ui::TeamInfo *ui;

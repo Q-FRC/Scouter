@@ -26,6 +26,8 @@ TeamInfo::TeamInfo(QWidget *parent)
     m_buttonMap.insert(AllianceStation::Blue1, ui->blue1);
     m_buttonMap.insert(AllianceStation::Blue2, ui->blue2);
     m_buttonMap.insert(AllianceStation::Blue3, ui->blue3);
+
+    connect(ui->teamNumber, &QSpinBox::valueChanged, this, &TeamInfo::teamNumberChanged);
 }
 
 #ifndef Q_OS_WASM
@@ -131,6 +133,18 @@ void TeamInfo::setStation() {
 
     if (station == AllianceStation::Invalid) return;
     m_buttonMap.value(station)->setChecked(true);
+}
+
+void TeamInfo::incrementMatch()
+{
+    ui->matchNumber->setValue(ui->matchNumber->value() + 1);
+    setTeam();
+}
+
+void TeamInfo::decrementMatch()
+{
+    ui->matchNumber->setValue(ui->matchNumber->value() - 1);
+    setTeam();
 }
 
 void TeamInfo::keyPressEvent(QKeyEvent *event) {

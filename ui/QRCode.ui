@@ -54,7 +54,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="nextMatch">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -62,7 +62,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Back to Start</string>
+      <string>Next Match</string>
      </property>
     </widget>
    </item>
