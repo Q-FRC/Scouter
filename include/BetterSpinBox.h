@@ -23,11 +23,19 @@ public:
 
     void setWrapping(bool wrap);
 
+    void setColor(QColor color);
+    void setTextColor(QColor color);
+
+    QString text() const;
+    void setText(const QString &newText);
+
 signals:
     void valueChanged(int value);
 
 private:
     Ui::BetterSpinBox *ui;
+
+    QString m_text;
 };
 
 #endif // BETTERSPINBOX_H

@@ -1,7 +1,9 @@
 #ifndef TELESCOUTING_H
 #define TELESCOUTING_H
 
+#include "BetterSpinBox.h"
 #include <QWidget>
+#include <QCheckBox>
 
 namespace Ui {
 class TeleScouting;
@@ -16,23 +18,13 @@ public:
     ~TeleScouting();
 
     void clear();
-
-    int shortAcquire();
-    int longAcquire();
-
-    int missedNotes();
-
-    int ampPieces();
-    int speakerPieces();
-    int shuttled();
-
-    int trapPieces();
-    bool defense();
-    bool defended();
-    bool climb();
+    QStringList tsv();
 
 private:
     Ui::TeleScouting *ui;
+
+    QList<BetterSpinBox *> m_spinBoxes;
+    QList<QCheckBox *> m_checkBoxes;
 };
 
 #endif // TELESCOUTING_H

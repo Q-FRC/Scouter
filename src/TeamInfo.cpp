@@ -149,6 +149,5 @@ void TeamInfo::decrementMatch()
 
 void TeamInfo::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Backspace) {
-        qDebug() << "nuhuh";
     }
 }

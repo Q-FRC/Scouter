@@ -950,7 +950,7 @@
       <string>Event Code:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -1274,7 +1274,7 @@
       <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -1295,9 +1295,9 @@
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
+           <red>0</red>
            <green>0</green>
-           <blue>255</blue>
+           <blue>0</blue>
           </color>
          </brush>
         </colorrole>
@@ -1306,9 +1306,9 @@
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
+           <red>0</red>
            <green>0</green>
-           <blue>255</blue>
+           <blue>0</blue>
           </color>
          </brush>
         </colorrole>
@@ -1317,18 +1317,18 @@
         <colorrole role="Base">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
+           <red>0</red>
            <green>0</green>
-           <blue>255</blue>
+           <blue>0</blue>
           </color>
          </brush>
         </colorrole>
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
+           <red>0</red>
            <green>0</green>
-           <blue>255</blue>
+           <blue>0</blue>
           </color>
          </brush>
         </colorrole>
@@ -1346,7 +1346,7 @@
       <string>Alliance Station:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -1950,7 +1950,7 @@ color: white;
       <string>Scouter Initials:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -2584,7 +2584,7 @@ color: white;
      <property name="font">
       <font>
        <family>Noto Sans</family>
-       <pointsize>48</pointsize>
+       <pointsize>32</pointsize>
        <bold>true</bold>
       </font>
      </property>
@@ -2595,7 +2595,7 @@ color: white;
       <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignHCenter|Qt::AlignTop</set>
+      <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -2919,7 +2919,7 @@ color: white;
       <string>Match Number:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </item>

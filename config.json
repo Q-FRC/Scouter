@@ -1,0 +1,135 @@
+{
+    "pages": {
+        "auto": {
+            "values": [
+                {
+                    "type": "int",
+                    "color": "#FF0000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Wing Pieces Acquired"
+                },
+                {
+                    "type": "int",
+                    "color": "#00FF00",
+                    "textColor": "#000000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Neutral Pieces Acquired"
+                },
+                {
+                    "type": "int",
+                    "color": "#FF5500",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Amp Pieces Scored"
+                },
+                {
+                    "type": "int",
+                    "color": "#CCCC00",
+                    "textColor": "#000000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Speaker Pieces Scored"
+                },
+                {
+                    "type": "bool",
+                    "text": "Mobility?"
+                },
+                {
+                    "type": "bool",
+                    "text": "A-Stopped?"
+                },
+                {
+                    "type": "bool",
+                    "text": "Went for Neutral Zone?"
+                }
+            ]
+        },
+        "tele": {
+            "values": [
+                {
+                    "type": "int",
+                    "color": "#FF0000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Short Acquire"
+                },
+                {
+                    "type": "int",
+                    "color": "#00FF00",
+                    "textColor": "#000000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Long Acquire"
+                },
+                {
+                    "type": "int",
+                    "color": "#FF5500",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Shuttled Notes"
+                },
+                {
+                    "type": "int",
+                    "color": "#CCCC00",
+                    "textColor": "#000000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Amp Scored"
+                },
+                {
+                    "type": "int",
+                    "color": "#fd6bfd",
+                    "textColor": "#000000",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Speaker Scored"
+                },
+                {
+                    "type": "int",
+                    "color": "#0055FF",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Missed"
+                },
+                {
+                    "type": "bool",
+                    "text": "Trap?"
+                },
+                {
+                    "type": "bool",
+                    "text": "Climb?"
+                },
+                {
+                    "type": "bool",
+                    "text": "Played Defense?"
+                },
+                {
+                    "type": "bool",
+                    "text": "Was Defended?"
+                }
+            ]
+        },
+        "scales": {
+            "values": [
+                {
+                    "title": "Driver",
+                    "desc": "How did the driver do? Did they hit field elements/robots? Did they drive spastically, or smooth? Were they quick to pick up, score, operate?"
+                },
+                {
+                    "title": "Defense Skill",
+                    "desc": "If they played defense, how'd they do? Did they shut down other robots?"
+                },
+                {
+                    "title": "Speed",
+                    "desc": "Generally, how fast were they? Consider scoring, driving, and pickup."
+                },
+                {
+                    "title": "Shuttling",
+                    "desc": "If they shuttled, how good was it? Did notes get stolen? Did the notes get put in the corner (good), source (bad), or off the field (really bad)?"
+                }
+            ]
+        }
+    }
+}

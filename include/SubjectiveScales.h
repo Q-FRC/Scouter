@@ -1,6 +1,7 @@
 #ifndef SUBJECTIVESCALES_H
 #define SUBJECTIVESCALES_H
 
+#include "Scale.h"
 #include <QWidget>
 
 namespace Ui {
@@ -15,14 +16,12 @@ public:
     explicit SubjectiveScales(QWidget *parent = nullptr);
     ~SubjectiveScales();
 
-    int driver();
-    int defense();
-    int speed();
-    int shuttling();
-
     void clear();
+    QStringList tsv();
 private:
     Ui::SubjectiveScales *ui;
+
+    QList<Scale *> m_scales;
 };
 
 #endif // SUBJECTIVESCALES_H
