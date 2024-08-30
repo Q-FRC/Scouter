@@ -15,6 +15,11 @@ public:
     explicit WelcomePage(QWidget *parent = nullptr);
     ~WelcomePage();
 
+    void showButton(bool show = true);
+
+signals:
+    void backToQRCode();
+
 private:
     Ui::WelcomePage *ui;
 };

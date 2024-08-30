@@ -1,13 +1,18 @@
 #include "TeamInfo.h"
-#include "ui_TeamInfo.h"
-
 #include <QDir>
+
+#include <QKeyEvent>
+
+#ifndef Q_OS_WASM
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 #include <QMessageBox>
 
-#include <QKeyEvent>
+#include "ui_TeamInfo.h"
+#else
+#include "ui_WebTeamInfo.h"
+#endif
 
 TeamInfo::TeamInfo(QWidget *parent)
     : QWidget(parent)
@@ -21,21 +26,11 @@ TeamInfo::TeamInfo(QWidget *parent)
     m_buttonMap.insert(AllianceStation::Blue1, ui->blue1);
     m_buttonMap.insert(AllianceStation::Blue2, ui->blue2);
     m_buttonMap.insert(AllianceStation::Blue3, ui->blue3);
+
+    connect(ui->teamNumber, &QSpinBox::valueChanged, this, &TeamInfo::teamNumberChanged);
 }
 
-TeamInfo::~TeamInfo()
-{
-    delete ui;
-}
-
-int TeamInfo::teamNumber() {
-    return ui->teamNumber->value();
-}
-
-int TeamInfo::matchNumber() {
-    return ui->matchNumber->value();
-}
-
+#ifndef Q_OS_WASM
 void TeamInfo::downloadSchedule() {
     QString eventCode = ui->event->text();
 
@@ -69,6 +64,20 @@ void TeamInfo::downloadSchedule() {
     connect(reply, &QNetworkReply::sslErrors, this, [this](QList<QSslError>) {
         QMessageBox::critical(this, "Network Error", "A critical network error occurred; check to make sure you're connected and the event code is correct.");
     });
+}
+#endif
+
+TeamInfo::~TeamInfo()
+{
+    delete ui;
+}
+
+int TeamInfo::teamNumber() {
+    return ui->teamNumber->value();
+}
+
+int TeamInfo::matchNumber() {
+    return ui->matchNumber->value();
 }
 
 QString TeamInfo::initials() {
@@ -124,6 +133,18 @@ void TeamInfo::setStation() {
 
     if (station == AllianceStation::Invalid) return;
     m_buttonMap.value(station)->setChecked(true);
+}
+
+void TeamInfo::incrementMatch()
+{
+    ui->matchNumber->setValue(ui->matchNumber->value() + 1);
+    setTeam();
+}
+
+void TeamInfo::decrementMatch()
+{
+    ui->matchNumber->setValue(ui->matchNumber->value() - 1);
+    setTeam();
 }
 
 void TeamInfo::keyPressEvent(QKeyEvent *event) {

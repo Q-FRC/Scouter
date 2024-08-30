@@ -8,7 +8,7 @@ QRCode::QRCode(QWidget *parent)
     , ui(new Ui::QRCode)
 {
     ui->setupUi(this);
-    connect(ui->pushButton, &QPushButton::clicked, this, &QRCode::backButtonPressed);
+    connect(ui->nextMatch, &QPushButton::clicked, this, &QRCode::backButtonPressed);
 }
 
 QRCode::~QRCode()

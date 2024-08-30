@@ -10,8 +10,17 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Svg Network)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg Network)
+if(NOT EMSCRIPTEN)
+    option(TBA_AUTH_KEY "TBA authentication key." "")
+endif()
+
+if(EMSCRIPTEN)
+    find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Svg)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg)
+else()
+    find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Svg Network)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg Network)
+endif()
 
 set(QRCODE_SOURCES
     Qt-QrCodeGenerator/src/QrCodeGenerator.cpp
@@ -38,7 +47,6 @@ set(PROJECT_SOURCES
     ui/MainWindow.ui
 
     ui/WelcomePage.ui
-    ui/TeamInfo.ui
     ui/AutoScouting.ui
 
     include/TeleScouting.h src/TeleScouting.cpp ui/TeleScouting.ui
@@ -62,9 +70,13 @@ if(ANDROID)
     set(MANIFEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml)
 endif()
 
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+if(EMSCRIPTEN)
+    set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/WebTeamInfo.ui Schedule.qrc)
+else()
+    set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/TeamInfo.ui)
+endif()
 
-option(TBA_AUTH_KEY "TBA authentication key." "")
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 # Git
 include(GetGitRevisionDescription)
@@ -89,7 +101,11 @@ qt_add_executable(QFRCScouter
     include/Scale.h src/Scale.cpp ui/Scale.ui
 )
 
-target_link_libraries(QFRCScouter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg Qt${QT_VERSION_MAJOR}::Network)
+if (EMSCRIPTEN)
+    target_link_libraries(QFRCScouter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg)
+else()
+    target_link_libraries(QFRCScouter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg Qt${QT_VERSION_MAJOR}::Network)
+endif()
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -116,7 +132,9 @@ target_include_directories(QFRCScouter PRIVATE include/)
 target_include_directories(QFRCScouter PRIVATE tba/)
 target_include_directories(QFRCScouter PRIVATE Qt-QrCodeGenerator/src)
 
-add_compile_definitions(TBA_AUTH_KEY="${TBA_AUTH_KEY}")
+if(NOT EMSCRIPTEN)
+    add_compile_definitions(TBA_AUTH_KEY="${TBA_AUTH_KEY}")
+endif()
 
 if (EMSCRIPTEN)
     target_compile_options(QFRCScouter PRIVATE "-sNO_DISABLE_EXCEPTION_CATCHING")

@@ -4,77 +4,85 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , Ui::MainWindow()
+    , ui(new Ui::MainWindow)
 {
-    setupUi(this);
+    ui->setupUi(this);
     m_pages = {
-        welcome,
-        teamInfo,
-        autoScouting,
-        teleScouting,
-        notes,
-        scales,
-        qrcode
+        ui->welcome,
+        ui->teamInfo,
+        ui->autoScouting,
+        ui->teleScouting,
+        ui->notes,
+        ui->scales,
+        ui->qrcode
     };
 
-    connect(qrcode, &QRCode::backButtonPressed, this, &MainWindow::backToStart);
+    connect(ui->qrcode, &QRCode::backButtonPressed, this, &MainWindow::backToStart);
+    connect(ui->teamInfo, &TeamInfo::teamNumberChanged, this, [this](int team) {
+        ui->team->setText("Your Team: " + QString::number(team));
+    });
+    connect(ui->welcome, &WelcomePage::backToQRCode, this, &MainWindow::backToQRCode);
+
+    ui->welcome->showButton(false);
+    ui->teamInfo->setTeam();
 }
 
 MainWindow::~MainWindow()
 {
+    delete ui;
 }
 
 QString MainWindow::serializeData() {
     QStringList tsv;
-    tsv << QString::number(teamInfo->teamNumber());
-    tsv << QString::number(teamInfo->matchNumber());
+    tsv << QString::number(ui->teamInfo->teamNumber());
+    tsv << QString::number(ui->teamInfo->matchNumber());
 
-    tsv << teamInfo->initials();
+    tsv << ui->teamInfo->initials();
 
-    tsv << QString::number(autoScouting->mobility());
+    tsv << QString::number(ui->autoScouting->mobility());
 
-    tsv << QString::number(autoScouting->wingPieces());
-    tsv << QString::number(autoScouting->neutralPieces());
+    tsv << QString::number(ui->autoScouting->wingPieces());
+    tsv << QString::number(ui->autoScouting->neutralPieces());
 
-    tsv << QString::number(autoScouting->ampPieces());
-    tsv << QString::number(autoScouting->speakerPieces());
+    tsv << QString::number(ui->autoScouting->ampPieces());
+    tsv << QString::number(ui->autoScouting->speakerPieces());
 
-    tsv << QString::number(autoScouting->aStop());
-    tsv << QString::number(autoScouting->neutralZone());
+    tsv << QString::number(ui->autoScouting->aStop());
+    tsv << QString::number(ui->autoScouting->neutralZone());
 
-    tsv << QString::number(teleScouting->shortAcquire());
-    tsv << QString::number(teleScouting->longAcquire());
-    tsv << QString::number(teleScouting->shuttled());
+    tsv << QString::number(ui->teleScouting->shortAcquire());
+    tsv << QString::number(ui->teleScouting->longAcquire());
+    tsv << QString::number(ui->teleScouting->shuttled());
 
-    tsv << QString::number(teleScouting->ampPieces());
-    tsv << QString::number(teleScouting->speakerPieces());
-    tsv << QString::number(teleScouting->trapPieces());
+    tsv << QString::number(ui->teleScouting->ampPieces());
+    tsv << QString::number(ui->teleScouting->speakerPieces());
+    tsv << QString::number(ui->teleScouting->trapPieces());
 
-    tsv << QString::number(teleScouting->missedNotes());
+    tsv << QString::number(ui->teleScouting->missedNotes());
 
-    tsv << QString::number(teleScouting->climb());
-    tsv << QString::number(teleScouting->defense());
-    tsv << QString::number(teleScouting->defended());
+    tsv << QString::number(ui->teleScouting->climb());
+    tsv << QString::number(ui->teleScouting->defense());
+    tsv << QString::number(ui->teleScouting->defended());
 
-    tsv << QString::number(scales->driver());
-    tsv << QString::number(scales->defense());
-    tsv << QString::number(scales->speed());
-    tsv << QString::number(scales->shuttling());
+    tsv << QString::number(ui->scales->driver());
+    tsv << QString::number(ui->scales->defense());
+    tsv << QString::number(ui->scales->speed());
+    tsv << QString::number(ui->scales->shuttling());
 
-    tsv << notes->notes();
+    tsv << ui->notes->notes();
 
     return tsv.join("\t");
 }
 
 void MainWindow::next() {
     int nextIdx = currentIdx + 1;
-    if (nextIdx >= stackedWidget->count()) nextIdx = stackedWidget->count() - 1;
+    if (nextIdx >= ui->stackedWidget->count()) nextIdx = ui->stackedWidget->count() - 1;
     currentIdx = nextIdx;
 
-    stackedWidget->setCurrentWidget(m_pages.at(nextIdx));
+    ui->stackedWidget->setCurrentWidget(m_pages.at(nextIdx));
 
-    if (nextIdx == stackedWidget->count() - 1) {
-        qrcode->setQRData(serializeData());
+    if (nextIdx == ui->stackedWidget->count() - 1) {
+        ui->qrcode->setQRData(serializeData());
     }
 }
 
@@ -83,16 +91,26 @@ void MainWindow::back() {
     if (nextIdx < 0) nextIdx = 0;
     currentIdx = nextIdx;
 
-    stackedWidget->setCurrentWidget(m_pages.at(nextIdx));
+    ui->stackedWidget->setCurrentWidget(m_pages.at(nextIdx));
 }
 
 void MainWindow::backToStart() {
     currentIdx = 0;
-    stackedWidget->setCurrentWidget(welcome);
-    teleScouting->clear();
-    autoScouting->clear();
-    notes->clear();
-    scales->clear();
+    ui->welcome->showButton();
+    ui->stackedWidget->setCurrentWidget(ui->welcome);
+    ui->teamInfo->incrementMatch();
+
+    ui->teleScouting->clear();
+    ui->autoScouting->clear();
+    ui->notes->clear();
+    ui->scales->clear();
+}
+
+void MainWindow::backToQRCode()
+{
+    currentIdx = m_pages.indexOf(ui->qrcode);
+    ui->teamInfo->decrementMatch();
+    ui->stackedWidget->setCurrentWidget(m_pages.at(currentIdx));
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {

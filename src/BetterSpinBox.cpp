@@ -6,6 +6,8 @@ BetterSpinBox::BetterSpinBox(QWidget *parent)
     , ui(new Ui::BetterSpinBox)
 {
     ui->setupUi(this);
+
+    connect(ui->box, &QSpinBox::valueChanged, this, &BetterSpinBox::valueChanged);
 }
 
 BetterSpinBox::~BetterSpinBox()
@@ -23,6 +25,10 @@ int BetterSpinBox::value() {
 
 void BetterSpinBox::setMaximum(int max) {
     ui->box->setMaximum(max);
+}
+
+void BetterSpinBox::setMinimum(int min) {
+    ui->box->setMinimum(min);
 }
 
 void BetterSpinBox::setWrapping(bool wrap) {
