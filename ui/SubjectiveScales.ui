@@ -25,7 +25,7 @@
      <property name="font">
       <font>
        <family>Noto Sans</family>
-       <pointsize>38</pointsize>
+       <pointsize>32</pointsize>
        <bold>true</bold>
       </font>
      </property>

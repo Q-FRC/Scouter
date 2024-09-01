@@ -34,22 +34,22 @@ set(PROJECT_SOURCES
 
     src/WelcomePage.cpp
     src/TeamInfo.cpp
-    src/AutoScouting.cpp
+    src/MatchPage.cpp
 
     # ================== #
     include/MainWindow.h
 
     include/WelcomePage.h
     include/TeamInfo.h
-    include/AutoScouting.h
+    include/MatchPage.h
 
     # ================== #
     ui/MainWindow.ui
 
     ui/WelcomePage.ui
-    ui/AutoScouting.ui
+    ui/MatchPage.ui
 
-    include/TeleScouting.h src/TeleScouting.cpp ui/TeleScouting.ui
+
     include/QRCode.h src/QRCode.cpp ui/QRCode.ui
     include/BetterSpinBox.h src/BetterSpinBox.cpp ui/BetterSpinBox.ui
     include/Notes.h src/Notes.cpp ui/Notes.ui
@@ -146,6 +146,17 @@ if (ANDROID)
     set_target_properties(QFRCScouter PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
         COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
+
+    include(FetchContent)
+    FetchContent_Declare(
+        android_openssl
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
+    )
+    FetchContent_MakeAvailable(android_openssl)
+    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
+
+    add_android_openssl_libraries(QFRCScouter)
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)

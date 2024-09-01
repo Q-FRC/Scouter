@@ -23,6 +23,8 @@ public:
     explicit TeamInfo(QWidget *parent = nullptr);
     ~TeamInfo();
 
+    void config(const QJsonObject &obj);
+
     int teamNumber();
     int matchNumber();
 
@@ -43,6 +45,7 @@ signals:
 signals:
 #endif
     void teamNumberChanged(int team);
+    void stationChanged(AllianceStation station);
 
 private:
     Ui::TeamInfo *ui;

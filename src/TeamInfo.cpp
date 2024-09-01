@@ -72,6 +72,22 @@ TeamInfo::~TeamInfo()
     delete ui;
 }
 
+void TeamInfo::config(const QJsonObject &obj)
+{
+    QPalette boxPalette = ui->initials->palette();
+    boxPalette.setColor(QPalette::Window, obj.value("button").toString("#ff00ff"));
+    boxPalette.setColor(QPalette::ButtonText, obj.value("buttonText").toString("#000000"));
+    boxPalette.setColor(QPalette::Button, obj.value("button").toString("#ff00ff"));
+
+    ui->initials->setPalette(boxPalette);
+    ui->matchNumber->setPalette(boxPalette);
+    ui->teamNumber->setPalette(boxPalette);
+#ifndef Q_OS_WASM
+    ui->event->setPalette(boxPalette);
+    ui->pushButton->setPalette(boxPalette);
+#endif
+}
+
 int TeamInfo::teamNumber() {
     return ui->teamNumber->value();
 }
@@ -98,6 +114,8 @@ void TeamInfo::setTeam() {
         iter.next();
         if (iter.value()->isChecked()) station = iter.key();
     }
+
+    emit stationChanged(station);
 
     std::optional<Match> match;
     match = m_matchData.schedule().getMatch(matchNumber, level);

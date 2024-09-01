@@ -14,6 +14,7 @@ class WelcomePage : public QWidget
 public:
     explicit WelcomePage(QWidget *parent = nullptr);
     ~WelcomePage();
+    void config(const QJsonObject &obj);
 
     void showButton(bool show = true);
 

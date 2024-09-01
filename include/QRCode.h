@@ -15,6 +15,8 @@ public:
     explicit QRCode(QWidget *parent = nullptr);
     ~QRCode();
 
+    void config(const QJsonObject &obj);
+
     void setQRData(QString data);
 
 private:
