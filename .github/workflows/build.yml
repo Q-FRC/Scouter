@@ -63,7 +63,6 @@ jobs:
       shell: bash
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
-        echo ${{ matrix.qt_arch }}
 
     - name: Install MSVC (Windows)
       if: runner.os == 'Windows'
@@ -72,13 +71,22 @@ jobs:
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
-    - name: Install Qt ${{ matrix.qt_version }}
+    - name: Install Qt ${{ matrix.qt_version }} (Windows)
+      if: runner.os == 'Windows'
       uses: jurplel/install-qt-action@v3.3.0
       with:
         cache: on
         version: ${{ matrix.qt_version }}
         aqtversion: ==3.1.*
         arch: ${{ matrix.qt_arch }}
+
+    - name: Install Qt ${{ matrix.qt_version }} (Linux)
+      if: runner.os == 'Linux'
+      uses: jurplel/install-qt-action@v3.3.0
+      with:
+        cache: on
+        version: ${{ matrix.qt_version }}
+        aqtversion: ==3.1.*
 
     - name: Install Qt (WASM)
       if: matrix.qt_arch == 'wasm_multithread'
