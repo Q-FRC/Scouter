@@ -1,11 +1,75 @@
 #include "TeleScouting.h"
 #include "ui_TeleScouting.h"
 
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <qdir.h>
+
 TeleScouting::TeleScouting(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::TeleScouting)
 {
     ui->setupUi(this);
+
+    // #ifdef Q_OS_WASM
+    QFile file(":/config");
+    // #else
+    //     QFile file(QDir::homePath() + "/schedule.json");
+    // #endif
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qCritical() << "auto scouting sad";
+    }
+
+    QByteArray data = file.readAll();
+
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    QJsonObject obj = doc.object();
+    QJsonObject pages = obj.value("pages").toObject();
+    QJsonObject telePage = pages.value("tele").toObject();
+
+    QJsonArray values = telePage.value("values").toArray();
+
+    for (const QJsonValueRef ref : values) {
+        QJsonObject obj = ref.toObject();
+
+        QString type = obj.value("type").toString("int");
+
+        if (type == "int") {
+            BetterSpinBox *box = new BetterSpinBox(this);
+            box->setColor(obj.value("color").toString("#000000"));
+            box->setTextColor(obj.value("textColor").toString("#FFFFFF"));
+
+            box->setMinimum(obj.value("min").toInt(0));
+            box->setMaximum(obj.value("max").toInt(99999));
+
+            box->setText(obj.value("text").toString(""));
+
+            m_spinBoxes.append(box);
+        } else if (type == "bool") {
+            QCheckBox *box = new QCheckBox(this);
+            box->setText(obj.value("text").toString(""));
+
+            m_checkBoxes.append(box);
+        }
+    }
+
+    for (size_t i = 0; i < m_spinBoxes.length(); ++i) {
+        BetterSpinBox *box = m_spinBoxes.at(i);
+        QLabel *label = new QLabel(box->text(), this);
+        ui->gridLayout->addWidget(label, i + 1, 0, Qt::AlignTop);
+        ui->gridLayout->addWidget(box, i + 1, 1, Qt::AlignTop);
+    }
+
+    for (size_t i = 0; i < m_checkBoxes.length(); ++i) {
+        QCheckBox *box = m_checkBoxes.at(i);
+        box->setStyleSheet("QCheckBox::indicator:unchecked { width: 30px; height: 30px; } QCheckBox::indicator:checked { width: 30px; height: 30px; }");
+        ui->gridLayout->addWidget(box, i / 2 + m_spinBoxes.length() + 1, i % 2);
+    }
+
+    ui->gridLayout->setColumnStretch(1, 1);
 }
 
 TeleScouting::~TeleScouting()
@@ -14,57 +78,26 @@ TeleScouting::~TeleScouting()
 }
 
 void TeleScouting::clear() {
-    ui->ampPieces->setValue(0);
-    ui->speakerPieces->setValue(0);
+    for (BetterSpinBox *box : m_spinBoxes) {
+        box->setValue(0);
+    }
 
-    ui->longAcquire->setValue(0);
-    ui->shortAcquire->setValue(0);
-    ui->shuttled->setValue(0);
-
-    ui->missedNotes->setValue(0);
-
-    ui->trapPiece->setChecked(false);
-    ui->defense->setChecked(false);
-    ui->defended->setChecked(false);
-    ui->climb->setChecked(false);
+    for (QCheckBox *box : m_checkBoxes) {
+        box->setChecked(false);
+    }
 }
 
-int TeleScouting::shortAcquire() {
-    return ui->shortAcquire->value();
-}
+QStringList TeleScouting::tsv()
+{
+    QStringList tsv;
 
-int TeleScouting::longAcquire() {
-    return ui->longAcquire->value();
-}
+    for (BetterSpinBox *box : m_spinBoxes) {
+        tsv << QString::number(box->value());
+    }
 
-int TeleScouting::ampPieces() {
-    return ui->ampPieces->value();
-}
+    for (QCheckBox *box : m_checkBoxes) {
+        tsv << QString::number(box->isChecked());
+    }
 
-int TeleScouting::speakerPieces() {
-    return ui->speakerPieces->value();
-}
-
-int TeleScouting::shuttled() {
-    return ui->shuttled->value();
-}
-
-int TeleScouting::trapPieces() {
-    return ui->trapPiece->isChecked();
-}
-
-int TeleScouting::missedNotes() {
-    return ui->missedNotes->value();
-}
-
-bool TeleScouting::defense() {
-    return ui->defense->isChecked();
-}
-
-bool TeleScouting::defended() {
-    return ui->defended->isChecked();
-}
-
-bool TeleScouting::climb() {
-    return ui->climb->isChecked();
+    return tsv;
 }

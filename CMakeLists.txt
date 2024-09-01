@@ -59,6 +59,7 @@ set(PROJECT_SOURCES
     tba/Match.h tba/Match.cpp
 
     include/MatchData.h src/MatchData.cpp
+    Config.qrc
 )
 
 if(WIN32)

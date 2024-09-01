@@ -39,35 +39,11 @@ QString MainWindow::serializeData() {
 
     tsv << ui->teamInfo->initials();
 
-    tsv << QString::number(ui->autoScouting->mobility());
+    tsv << ui->autoScouting->tsv();
 
-    tsv << QString::number(ui->autoScouting->wingPieces());
-    tsv << QString::number(ui->autoScouting->neutralPieces());
+    tsv << ui->teleScouting->tsv();
 
-    tsv << QString::number(ui->autoScouting->ampPieces());
-    tsv << QString::number(ui->autoScouting->speakerPieces());
-
-    tsv << QString::number(ui->autoScouting->aStop());
-    tsv << QString::number(ui->autoScouting->neutralZone());
-
-    tsv << QString::number(ui->teleScouting->shortAcquire());
-    tsv << QString::number(ui->teleScouting->longAcquire());
-    tsv << QString::number(ui->teleScouting->shuttled());
-
-    tsv << QString::number(ui->teleScouting->ampPieces());
-    tsv << QString::number(ui->teleScouting->speakerPieces());
-    tsv << QString::number(ui->teleScouting->trapPieces());
-
-    tsv << QString::number(ui->teleScouting->missedNotes());
-
-    tsv << QString::number(ui->teleScouting->climb());
-    tsv << QString::number(ui->teleScouting->defense());
-    tsv << QString::number(ui->teleScouting->defended());
-
-    tsv << QString::number(ui->scales->driver());
-    tsv << QString::number(ui->scales->defense());
-    tsv << QString::number(ui->scales->speed());
-    tsv << QString::number(ui->scales->shuttling());
+    tsv << ui->scales->tsv();
 
     tsv << ui->notes->notes();
 

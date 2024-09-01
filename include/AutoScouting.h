@@ -1,7 +1,9 @@
 #ifndef AUTOSCOUTING_H
 #define AUTOSCOUTING_H
 
+#include "BetterSpinBox.h"
 #include <QWidget>
+#include <qcheckbox.h>
 
 namespace Ui {
 class AutoScouting;
@@ -16,19 +18,13 @@ public:
     ~AutoScouting();
 
     void clear();
-
-    int wingPieces();
-    int neutralPieces();
-
-    int ampPieces();
-    int speakerPieces();
-
-    bool mobility();
-    bool aStop();
-    bool neutralZone();
+    QStringList tsv();
 
 private:
     Ui::AutoScouting *ui;
+
+    QList<BetterSpinBox *> m_spinBoxes;
+    QList<QCheckBox *> m_checkBoxes;
 };
 
 #endif // AUTOSCOUTING_H
