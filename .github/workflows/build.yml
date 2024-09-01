@@ -78,6 +78,7 @@ jobs:
         cache: on
         version: ${{ matrix.qt_version }}
         aqtversion: ==3.1.*
+        arch: ${{ matrix.qt_arch }}
 
     - name: Install Qt (WASM)
       if: matrix.qt_arch == 'wasm_multithread'
