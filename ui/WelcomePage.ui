@@ -19,7 +19,7 @@
      <property name="font">
       <font>
        <family>Noto Sans</family>
-       <pointsize>40</pointsize>
+       <pointsize>32</pointsize>
        <bold>true</bold>
       </font>
      </property>
@@ -30,7 +30,7 @@
       <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignHCenter|Qt::AlignTop</set>
+      <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -58,7 +58,7 @@ Welcome to QFRCScouter! Hit the &quot;Next&quot; button to begin scouting.</stri
       <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignHCenter|Qt::AlignTop</set>
+      <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -68,7 +68,7 @@ Welcome to QFRCScouter! Hit the &quot;Next&quot; button to begin scouting.</stri
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -81,10 +81,16 @@ Welcome to QFRCScouter! Hit the &quot;Next&quot; button to begin scouting.</stri
    <item>
     <widget class="QPushButton" name="qrcode">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
      </property>
      <property name="font">
       <font>
@@ -99,7 +105,7 @@ Welcome to QFRCScouter! Hit the &quot;Next&quot; button to begin scouting.</stri
    <item>
     <spacer name="verticalSpacer_2">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

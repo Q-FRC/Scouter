@@ -15,6 +15,7 @@ class SubjectiveScales : public QWidget
 public:
     explicit SubjectiveScales(QWidget *parent = nullptr);
     ~SubjectiveScales();
+    void config(const QJsonObject &obj);
 
     void clear();
     QStringList tsv();

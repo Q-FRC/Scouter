@@ -1,56 +1,55 @@
-#include "TeleScouting.h"
-#include "ui_TeleScouting.h"
+#include "MatchPage.h"
+#include "ui_MatchPage.h"
 
 #include <QJsonArray>
-#include <QJsonDocument>
 #include <QJsonObject>
-#include <qdir.h>
 
-TeleScouting::TeleScouting(QWidget *parent)
+MatchPage::MatchPage(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::TeleScouting)
+    , ui(new Ui::MatchPage)
 {
     ui->setupUi(this);
+}
 
-    // #ifdef Q_OS_WASM
-    QFile file(":/config");
-    // #else
-    //     QFile file(QDir::homePath() + "/schedule.json");
-    // #endif
+MatchPage::~MatchPage()
+{
+    delete ui;
+}
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qCritical() << "auto scouting sad";
-    }
+void MatchPage::config(bool tele, const QJsonObject &obj)
+{    
+    if (tele) ui->title->setText("Teleop Data");
 
-    QByteArray data = file.readAll();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-
-    QJsonObject obj = doc.object();
     QJsonObject pages = obj.value("pages").toObject();
-    QJsonObject telePage = pages.value("tele").toObject();
+    QJsonArray page = pages.value(tele ? "tele" : "auto").toArray();
 
-    QJsonArray values = telePage.value("values").toArray();
+    for (const QJsonValueRef ref : page) {
+        QJsonObject val = ref.toObject();
 
-    for (const QJsonValueRef ref : values) {
-        QJsonObject obj = ref.toObject();
-
-        QString type = obj.value("type").toString("int");
+        QString type = val.value("type").toString("int");
 
         if (type == "int") {
             BetterSpinBox *box = new BetterSpinBox(this);
-            box->setColor(obj.value("color").toString("#000000"));
-            box->setTextColor(obj.value("textColor").toString("#FFFFFF"));
+            box->setColor(val.value("color").toString("#000000"));
+            box->setTextColor(val.value("textColor").toString("#FFFFFF"));
 
-            box->setMinimum(obj.value("min").toInt(0));
-            box->setMaximum(obj.value("max").toInt(99999));
+            box->setMinimum(val.value("min").toInt(0));
+            box->setMaximum(val.value("max").toInt(99999));
 
-            box->setText(obj.value("text").toString(""));
+            box->setText(val.value("text").toString(""));
+
+            QPalette p = box->palette();
+            p.setColor(QPalette::Window, val.value("color").toString("#000000"));
+            box->setPalette(p);
 
             m_spinBoxes.append(box);
         } else if (type == "bool") {
             QCheckBox *box = new QCheckBox(this);
-            box->setText(obj.value("text").toString(""));
+            box->setText(val.value("text").toString(""));
+
+            QPalette p = box->palette();
+            p.setColor(QPalette::WindowText, obj.value("textColor").toString("#000000"));
+            box->setPalette(p);
 
             m_checkBoxes.append(box);
         }
@@ -72,12 +71,7 @@ TeleScouting::TeleScouting(QWidget *parent)
     ui->gridLayout->setColumnStretch(1, 1);
 }
 
-TeleScouting::~TeleScouting()
-{
-    delete ui;
-}
-
-void TeleScouting::clear() {
+void MatchPage::clear() {
     for (BetterSpinBox *box : m_spinBoxes) {
         box->setValue(0);
     }
@@ -87,7 +81,7 @@ void TeleScouting::clear() {
     }
 }
 
-QStringList TeleScouting::tsv()
+QStringList MatchPage::tsv()
 {
     QStringList tsv;
 

@@ -2,6 +2,7 @@
 #include "ui_QRCode.h"
 
 #include "QrCodeGenerator.h"
+#include <QJsonObject>
 
 QRCode::QRCode(QWidget *parent)
     : QWidget(parent)
@@ -14,6 +15,11 @@ QRCode::QRCode(QWidget *parent)
 QRCode::~QRCode()
 {
     delete ui;
+}
+
+void QRCode::config(const QJsonObject &obj)
+{
+
 }
 
 void QRCode::setQRData(QString data) {
