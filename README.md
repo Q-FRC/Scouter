@@ -10,22 +10,34 @@ The match number is next, which can be incremented and decremented with the plus
 
 Finally, if the schedule is set up properly, the scouter can set the alliance station they plan to scout. The scouting app will automatically set the team number for each match. The selected station & team number will always be displayed at the bottom.
 
+![TeamInfo](/img/TeamInfo.png?raw=true)
+
 ### Auto Data
 Scouting for autonomous data begins. Press the plus and minus buttons on each of the relevant fields as needed, and select the checkboxes at the end of the autonomous period as needed.
+
+![Auto](/img/Auto.png?raw=true)
 
 ### Teleop Data
 Scouting for teleop & endgame data begins. Operation here is identical to Auto scouting.
 
+![Tele](/img/Tele.png?raw=true)
+
 ### Notes
 Enter any quick thoughts on the team you're scouting. You will be asked to quantify some things later, so don't go into too much detail.
 
+![Notes](/img/Notes.png?raw=true)
+
 ### Opinions
 Select your opinions on various factors here, ranging from very bad to elite. If the team didn't contribute in that factor, select N/A.
+
+![Scales](/img/Scales.png?raw=true)
 
 ### QR Code
 You're done! Present your QR code to the scanner to be put into the spreadsheet. Once done, select "next match". This will bring you to the beginning, and increment the match number, selecting the correct team for your alliance station.
 
 If the scan failed and you already selected "next match", OR if you wish to change some data, press "Back to QR Code" on the first page.
+
+![QRCode](/img/QRCode.png?raw=true)
 
 ## Self-Hosting
 
