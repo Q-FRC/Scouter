@@ -56,6 +56,8 @@ Your final secrets should look like this:
 
 ![Secrets](/img/Secrets.png?raw=true)
 
+Push any desired changes (config, schedule, etc) and your page will be hosted at https://<yourName>.github.io/Scouter. You can access native builds in the Actions tab of your repository.
+
 ### Schedule
 The match schedule can be downloaded at any time and kept offline for native platforms, by entering the relevant event code into the "Event Code" box on the "Team Info" page and pressing Download. Once downloaded once, it doesn't need to be downloaded again on future runs unless it's a different event.
 
