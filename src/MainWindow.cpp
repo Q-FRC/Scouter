@@ -43,8 +43,10 @@ MainWindow::MainWindow(QWidget *parent)
     QPalette main = this->palette();
     main.setColor(QPalette::Window, obj.value("backgroundColor").toString("#000000"));
     main.setColor(QPalette::Base, obj.value("backgroundColor").toString("#000000"));
+    main.setColor(QPalette::Highlight, obj.value("backgroundColor").toString("#000000"));
     main.setColor(QPalette::Text, obj.value("textColor").toString("#000000"));
     main.setColor(QPalette::WindowText, obj.value("textColor").toString("#000000"));
+    main.setColor(QPalette::HighlightedText, obj.value("textColor").toString("#000000"));
     main.setColor(QPalette::Button, obj.value("button").toString("#ff00ff"));
     main.setColor(QPalette::ButtonText, obj.value("buttonText").toString("#000000"));
 

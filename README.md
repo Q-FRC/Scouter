@@ -41,6 +41,21 @@ If the scan failed and you already selected "next match", OR if you wish to chan
 
 ## Self-Hosting
 
+### Start
+First, fork the repo.
+
+Next, you'll need to enable GitHub Pages -- go to your repo Settings -> Pages -> Branch, and select the master branch.
+
+Next, go to Secrets and Variables -> Actions -> Repository Secrets.
+
+Now, add a secret named `TBA_AUTH_KEY`. Go to https://thebluealliance.com, then to your account settings. Create or log into an account. Scroll down to "Read API Keys", and add a new key. Copy this key, and put it into the `TBA_AUTH_KEY` secret.
+
+If you plan to put out release builds, then you will need to set up an Android Keystore & the secrets for it. See https://github.com/r0adkll/sign-android-release for info on each of the variables.
+
+Your final secrets should look like this:
+
+![Secrets](/img/Secrets.png?raw=true)
+
 ### Schedule
 The match schedule can be downloaded at any time and kept offline for native platforms, by entering the relevant event code into the "Event Code" box on the "Team Info" page and pressing Download. Once downloaded once, it doesn't need to be downloaded again on future runs unless it's a different event.
 
