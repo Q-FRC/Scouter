@@ -96,6 +96,7 @@ jobs:
         cache: on
         host: all_os
         version: ${{ matrix.qt_version }}
+        target: wasm
         aqtsource: "git+https://github.com/crueter/aqtinstall.git"
         arch: ${{ matrix.qt_arch }}
 
