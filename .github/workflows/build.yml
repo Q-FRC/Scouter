@@ -91,7 +91,7 @@ jobs:
 
     - name: Install Qt ${{ matrix.qt_version }} (WASM)
       if: matrix.qt_arch == 'wasm_multithread'
-      uses: crueter/install-qt-action@master
+      uses: crueter/install-qt-action@4.0.2-wasm
       with:
         cache: on
         host: all_os
