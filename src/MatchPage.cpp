@@ -64,7 +64,8 @@ void MatchPage::config(bool tele, const QJsonObject &obj)
 
     for (size_t i = 0; i < m_checkBoxes.length(); ++i) {
         QCheckBox *box = m_checkBoxes.at(i);
-        box->setStyleSheet("QCheckBox::indicator:unchecked { width: 30px; height: 30px; } QCheckBox::indicator:checked { width: 30px; height: 30px; }");
+        box->setStyleSheet("QCheckBox::indicator:unchecked { width: 30px; height: 30px; }"
+                           "QCheckBox::indicator:checked { width: 30px; height: 30px; }");
         ui->gridLayout->addWidget(box, i / 2 + m_spinBoxes.length() + 1, i % 2);
     }
 

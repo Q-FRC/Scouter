@@ -42,6 +42,30 @@ void SubjectiveScales::config(const QJsonObject &obj)
         // p.setColor(QPalette::WindowText, obj.value("textColor").toString("#ffffff"));
         // scale->setPalette(p);
 
+        QString bg = obj.value("backgroundColor").toString("#000000");
+        QString txt = obj.value("textColor").toString("#dedede");
+
+        scale->setStyleSheet("QRadioButton {"
+                             "background-color: " + bg + ";" +
+                             "color: " + txt + ";"
+                                               "}" +
+
+                             "QRadioButton::indicator {"
+                             "    width: 15px;"
+                             "    height: 15px;"
+                             "    border-radius: 5px;"
+                             "}\n" +
+
+                             "QRadioButton::indicator:checked {" +
+                             "    background-color: " + txt + ";" +
+                             "    border: 2px solid " + txt + ";" +
+                             "}\n" +
+
+                             "QRadioButton::indicator:unchecked {"
+                             "    background-color:" + bg + ";" +
+                             "    border: 2px solid " + txt + ";" +
+                             "}");
+
         m_scales.append(scale);
 
         ui->formLayout->addRow(title, scale);
