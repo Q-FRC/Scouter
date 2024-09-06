@@ -35,8 +35,9 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.6.3'
+            qt_version: '6.7.2'
             qt_arch: wasm_multithread
+            emsdk_version: 3.1.50
 
           - os: windows-2022
             qt_host: windows
@@ -88,11 +89,12 @@ jobs:
         version: ${{ matrix.qt_version }}
         aqtversion: ==3.1.*
 
-    - name: Install Qt (WASM)
+    - name: Install Qt ${{ matrix.qt_version }} (WASM)
       if: matrix.qt_arch == 'wasm_multithread'
       uses: jurplel/install-qt-action@v3.3.0
       with:
         cache: on
+        host: all_os
         version: ${{ matrix.qt_version }}
         aqtversion: ==3.1.*
         aqtsource: "git+https://github.com/crueter/aqtinstall.git"
@@ -121,7 +123,7 @@ jobs:
       uses: mymindstorm/setup-emsdk@v13
       with:
         # Version to install
-        version: 3.1.50
+        version: ${{ matrix.emsdk_version }}
 
     - name: Configure and Build (Linux)
       if: runner.os == 'Linux'
