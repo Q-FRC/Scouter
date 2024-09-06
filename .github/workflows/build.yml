@@ -35,9 +35,9 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.8.0'
+            qt_version: '6.6.3'
             qt_arch: wasm_multithread
-            emsdk_version: 3.1.63
+            emsdk_version: 3.1.37
 
           - os: windows-2022
             qt_host: windows
@@ -74,7 +74,7 @@ jobs:
 
     - name: Install Qt ${{ matrix.qt_version }} (Windows)
       if: runner.os == 'Windows'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
         version: ${{ matrix.qt_version }}
@@ -83,7 +83,7 @@ jobs:
 
     - name: Install Qt ${{ matrix.qt_version }} (Linux)
       if: runner.os == 'Linux'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
         version: ${{ matrix.qt_version }}
@@ -91,18 +91,16 @@ jobs:
 
     - name: Install Qt ${{ matrix.qt_version }} (WASM)
       if: matrix.qt_arch == 'wasm_multithread'
-      uses: crueter/install-qt-action@4.0.3
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
-        host: all_os
+        host: ${{ matrix.qt_host }}
         version: ${{ matrix.qt_version }}
-        target: wasm
-        aqtsource: "git+https://github.com/crueter/aqtinstall.git"
         arch: ${{ matrix.qt_arch }}
 
     - name: Install Qt (Android)
       if: matrix.qt_target == 'android'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
         version: ${{ matrix.qt_version }}
