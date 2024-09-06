@@ -95,7 +95,7 @@ jobs:
         cache: on
         version: ${{ matrix.qt_version }}
         aqtversion: ==3.1.*
-        aqtsource: "git+https://github.com/miurahr/aqtinstall.git/#4c69408d425e48de82143d0ab21a1c67c4dffafc"
+        aqtsource: "git+https://github.com/crueter/aqtinstall.git"
         arch: ${{ matrix.qt_arch }}
 
     - name: Install Qt (Android)
