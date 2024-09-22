@@ -35,8 +35,9 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.6.3'
-            qt_arch: wasm_multithread
+            qt_version: '6.6.0'
+            qt_arch: wasm_singlethread
+            emsdk_version: 3.1.37
 
           - os: windows-2022
             qt_host: windows
@@ -73,7 +74,7 @@ jobs:
 
     - name: Install Qt ${{ matrix.qt_version }} (Windows)
       if: runner.os == 'Windows'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
         version: ${{ matrix.qt_version }}
@@ -82,25 +83,24 @@ jobs:
 
     - name: Install Qt ${{ matrix.qt_version }} (Linux)
       if: runner.os == 'Linux'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
         version: ${{ matrix.qt_version }}
         aqtversion: ==3.1.*
 
-    - name: Install Qt (WASM)
-      if: matrix.qt_arch == 'wasm_multithread'
-      uses: jurplel/install-qt-action@v3.3.0
+    - name: Install Qt ${{ matrix.qt_version }} (WASM)
+      if: matrix.qt_arch == 'wasm_singlethread'
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
+        host: ${{ matrix.qt_host }}
         version: ${{ matrix.qt_version }}
-        aqtversion: ==3.1.*
-        aqtsource: "git+https://github.com/miurahr/aqtinstall.git/#4c69408d425e48de82143d0ab21a1c67c4dffafc"
         arch: ${{ matrix.qt_arch }}
 
     - name: Install Qt (Android)
       if: matrix.qt_target == 'android'
-      uses: jurplel/install-qt-action@v3.3.0
+      uses: jurplel/install-qt-action@v4
       with:
         cache: on
         version: ${{ matrix.qt_version }}
@@ -117,11 +117,11 @@ jobs:
         wget "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage"
 
     - name: Prepare Emscripten (Linux)
-      if: runner.os == 'Linux' && matrix.qt_arch == 'wasm_multithread'
+      if: runner.os == 'Linux' && matrix.qt_arch == 'wasm_singlethread'
       uses: mymindstorm/setup-emsdk@v13
       with:
         # Version to install
-        version: 3.1.50
+        version: ${{ matrix.emsdk_version }}
 
     - name: Configure and Build (Linux)
       if: runner.os == 'Linux'
@@ -209,22 +209,22 @@ jobs:
       # UPLOAD BUILDS
       ##
 
-    - name: Wasm funniness
-      if: matrix.qt_arch == 'wasm_multithread'
+    - name: Fix WASM index.html
+      if: matrix.qt_arch == 'wasm_singlethread'
       shell: bash
       run: |
         cd ${{ env.BUILD_DIR }}
         cp QFRCScouter.html index.html
 
     - name: Upload Pages WASM
-      if: matrix.qt_arch == 'wasm_multithread'
+      if: matrix.qt_arch == 'wasm_singlethread'
       uses: actions/upload-pages-artifact@v3.0.0
       with:
         path: ${{ env.BUILD_DIR }}
         retention-days: 14
 
     - name: Deploy Pages WASM
-      if: matrix.qt_arch == 'wasm_multithread'
+      if: matrix.qt_arch == 'wasm_singlethread'
       uses: actions/deploy-pages@v4.0.2
 
     - name: Upload Release APK (Linux)
