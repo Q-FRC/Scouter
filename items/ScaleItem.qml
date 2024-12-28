@@ -38,7 +38,6 @@ ColumnLayout {
 
     RowLayout {
         Layout.fillWidth: true
-        uniformCellSizes: true
         spacing: 2
 
         Repeater {
@@ -46,7 +45,6 @@ ColumnLayout {
             model: ["Awful", "Bad", "N/A", "Fine", "Good", "Great", "Elite"]
 
             ScaleCheckbox {
-                // Layout.fillWidth: true
                 Layout.preferredWidth: 100
 
                 required property string modelData

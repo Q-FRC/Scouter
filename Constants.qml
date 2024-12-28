@@ -8,7 +8,6 @@ QtObject {
     readonly property int width: 1920
     readonly property int height: 1080
 
-    // add to config
     property color accent: config.object.qmlAccent
     property color button: config.object.button
     property color buttonPressed: config.object.buttonPressed

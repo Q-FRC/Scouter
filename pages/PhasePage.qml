@@ -26,7 +26,6 @@ Rectangle {
     property list<var> values
 
     GridLayout {
-        uniformCellWidths: true
         anchors {
             top: banner.bottom
             bottom: parent.bottom

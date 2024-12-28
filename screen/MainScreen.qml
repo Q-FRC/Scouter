@@ -99,7 +99,7 @@ Rectangle {
 
         RowLayout {
             Layout.fillWidth: true
-            uniformCellSizes: true
+
             Text {
                 Layout.fillWidth: true
                 horizontalAlignment: Qt.AlignHCenter
