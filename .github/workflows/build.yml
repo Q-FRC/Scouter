@@ -35,9 +35,9 @@ jobs:
 
           - os: ubuntu-20.04
             qt_host: linux
-            qt_version: '6.8.1'
+            qt_version: '6.6.0'
             qt_arch: wasm_singlethread
-            emsdk_version: 3.1.56
+            emsdk_version: 3.1.37
 
           - os: windows-2022
             qt_host: windows
@@ -89,6 +89,7 @@ jobs:
         host: ${{ matrix.qt_host }}
         version: ${{ matrix.qt_version }}
         arch: ${{ matrix.qt_arch }}
+        aqtversion: ==3.1*
 
     - name: Install Qt ${{ matrix.qt_version }} (Android)
       if: matrix.qt_target == 'android'
