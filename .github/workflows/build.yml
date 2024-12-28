@@ -75,6 +75,14 @@ jobs:
     - name: Install CMake
       uses: lukka/get-cmake@v3.28.1
 
+    - name: Install Java 21 (Android)
+      if: runner.qt_target == 'android'
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin' # See 'Supported distributions' for available options
+        java-version: '21'
+      run: java --version
+
     - name: Install Qt ${{ matrix.qt_version }}
       uses: jurplel/install-qt-action@v4
       with:
@@ -89,7 +97,6 @@ jobs:
         host: ${{ matrix.qt_host }}
         version: ${{ matrix.qt_version }}
         arch: ${{ matrix.qt_arch }}
-        aqtversion: ==3.1*
 
     - name: Install Qt ${{ matrix.qt_version }} (Android)
       if: matrix.qt_target == 'android'
