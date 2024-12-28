@@ -237,9 +237,13 @@ jobs:
       run: |
         cd ${{ env.BUILD_DIR }}
 
+        echo "mkdir"
         mkdir ../wasm
+        echo "fixing index"
         mv Scouter.html index.html
+        echo "copying files"
         cp {Scouter,qtloader}.js index.html Scouter.wasm ../wasm
+        echo "copying logo"
         cp program_info/QFRCScouter.svg ../wasm/qtlogo.svg
 
     - name: Upload Pages WASM
