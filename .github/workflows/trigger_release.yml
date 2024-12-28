@@ -46,8 +46,8 @@ jobs:
           zip -r QFRCScouter-Windows-Portable-${{ env.VERSION }}.zip QFRCScouter-Windows-Portable*/* QFRCScouter-Windows-Portable-${{ env.VERSION }}.zip
 
           tar xf QFRCScouter-macOS*/QFRCScouter.tar.gz
+          mv Scouter*.app QFRCScouter-macOS-${{ env.VERSION }}.app
           zip -r QFRCScouter-macOS-${{ env.VERSION }}.zip QFRCScouter-macOS-${{ env.VERSION }}.app
-          mv *Scouter*.app QFRCScouter-macOS-${{ env.VERSION }}.app
 
           tar -czf QFRCScouter-${{ env.VERSION }}.tar.gz QFRCScouter-${{ env.VERSION }}
           mv QFRCScouter-Android*/*.apk QFRCScouter-Android-${{ env.VERSION }}.apk
