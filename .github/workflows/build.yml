@@ -76,7 +76,7 @@ jobs:
       uses: lukka/get-cmake@v3.28.1
 
     - name: Install Java 21 (Android)
-      if: runner.qt_target == 'android'
+      if: matrix.qt_target == 'android'
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin' # See 'Supported distributions' for available options
