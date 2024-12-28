@@ -10,7 +10,7 @@ Button {
     Layout.preferredWidth: parent.width / 3
     Layout.fillHeight: true
     
-    font.pixelSize: 30
+    font.pixelSize: 30 * Constants.scalar
     
     background: Rectangle {
         radius: 5

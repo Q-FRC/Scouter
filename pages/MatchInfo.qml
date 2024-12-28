@@ -78,7 +78,7 @@ Rectangle {
 
         LabeledTextField {
             Layout.fillWidth: true
-            Layout.preferredHeight: 80
+            Layout.preferredHeight: 80 * Constants.scalar
 
             label: "Scouter Initials"
 
@@ -88,7 +88,7 @@ Rectangle {
 
         LabeledSpinBox {
             Layout.fillWidth: true
-            Layout.preferredHeight: 80
+            Layout.preferredHeight: 80 * Constants.scalar
 
             label: "Match Number"
             from: 1
@@ -102,7 +102,7 @@ Rectangle {
 
         LabeledSpinBox {
             Layout.fillWidth: true
-            Layout.preferredHeight: 80
+            Layout.preferredHeight: 80 * Constants.scalar
 
             label: "Team Number"
             to: 99999
@@ -114,11 +114,11 @@ Rectangle {
         RowLayout {
             visible: !platform.isWeb();
             Layout.fillWidth: true
-            Layout.preferredHeight: 80
+            Layout.preferredHeight: 80 * Constants.scalar
 
             LabeledTextField {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 80
+                Layout.preferredHeight: 80 * Constants.scalar
 
                 label: "Event Code"
 
@@ -127,8 +127,8 @@ Rectangle {
             }
 
             Button {
-                Layout.preferredHeight: 80
-                font.pixelSize: 30
+                Layout.preferredHeight: 80 * Constants.scalar
+                font.pixelSize: 30 * Constants.scalar
 
                 background: Rectangle {
                     radius: 5
@@ -144,7 +144,7 @@ Rectangle {
 
         LabeledComboBox {
             Layout.fillWidth: true
-            Layout.preferredHeight: 80
+            Layout.preferredHeight: 80 * Constants.scalar
 
             label: "Alliance Station"
             choices: [

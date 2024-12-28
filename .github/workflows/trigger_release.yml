@@ -26,12 +26,12 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
           path: 'QFRCScouter-source'
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
       - name: Grab and store version
         run: |
           tag_name=$(echo ${{ github.ref }} | grep -oE "[^/]+$")
@@ -42,7 +42,12 @@ jobs:
           ls *
           mv QFRCScouter-Linux-Binary*/QFRCScouter.tar.gz QFRCScouter-Linux-Binary-${{ env.VERSION }}.tar.gz
           mv QFRCScouter-*.AppImage/QFRCScouter-*.AppImage QFRCScouter-Linux-${{ env.VERSION }}-x86_64.AppImage
+
           zip -r QFRCScouter-Windows-Portable-${{ env.VERSION }}.zip QFRCScouter-Windows-Portable*/* QFRCScouter-Windows-Portable-${{ env.VERSION }}.zip
+
+          tar xf QFRCScouter-macOS*/QFRCScouter.tar.gz
+          zip -r QFRCScouter-macOS-${{ env.VERSION }}.zip QFRCScouter-macOS-${{ env.VERSION }}.app
+          mv *Scouter*.app QFRCScouter-macOS-${{ env.VERSION }}.app
 
           tar -czf QFRCScouter-${{ env.VERSION }}.tar.gz QFRCScouter-${{ env.VERSION }}
           mv QFRCScouter-Android*/*.apk QFRCScouter-Android-${{ env.VERSION }}.apk
@@ -61,3 +66,4 @@ jobs:
             QFRCScouter-Windows-Portable-${{ env.VERSION }}.zip
             QFRCScouter-${{ env.VERSION }}.tar.gz
             QFRCScouter-Android-${{ env.VERSION }}.apk
+            QFRCScouter-macOS-${{ env.VERSION }}.zip

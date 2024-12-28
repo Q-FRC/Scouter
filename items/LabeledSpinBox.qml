@@ -13,7 +13,7 @@ SpinBox {
     /** the target to bind the property to */
     required property var bindTarget
 
-    font.pixelSize: 24
+    font.pixelSize: 24 * Constants.scalar
 
     from: 0
     to: 1E9
@@ -91,7 +91,7 @@ SpinBox {
         text: label
         color: Constants.text
 
-        font.pixelSize: 20
+        font.pixelSize: 20 * Constants.scalar
 
         anchors {
             left: spin.left

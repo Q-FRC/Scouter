@@ -18,10 +18,10 @@ Item {
 
     CheckBox {
         id: control
-        font.pixelSize: 24
+        font.pixelSize: 24 * Constants.scalar
 
-        indicator.implicitHeight: 40
-        indicator.implicitWidth: 40
+        indicator.implicitHeight: 40 * Constants.scalar
+        indicator.implicitWidth: 40 * Constants.scalar
 
         onCheckedChanged: bindTarget[bindedProperty][idx] = checked ? 1 : 0
 

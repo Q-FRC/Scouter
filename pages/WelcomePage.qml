@@ -19,19 +19,21 @@ Rectangle {
         text: config.object.welcome
 
         wrapMode: Text.WordWrap
-        font.pixelSize: 25
+        font.pixelSize: 25 * Constants.scalar
         color: Constants.text
 
         anchors.centerIn: parent
 
         horizontalAlignment: Text.AlignHCenter
+
+        width: parent.width * 0.8
     }
 
     Button {
-        height: 80
-        width: 500
+        height: 80 * Constants.scalar
+        width: 500 * Constants.scalar
 
-        font.pixelSize: 30
+        font.pixelSize: 30 * Constants.scalar
 
         background: Rectangle {
             radius: 5
@@ -43,7 +45,7 @@ Rectangle {
             horizontalCenter: txt.horizontalCenter
             top: txt.bottom
 
-            topMargin: 30
+            topMargin: 30 * Constants.scalar
         }
 
         Universal.foreground: Constants.buttonText

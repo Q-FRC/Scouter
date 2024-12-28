@@ -17,9 +17,9 @@ ComboBox {
 
     id: combo
     model: choices
-    font.pixelSize: 24
+    font.pixelSize: 24 * Constants.scalar
 
-    height: 50
+    height: 50 * Constants.scalar
 
     currentIndex: 0
     onCurrentTextChanged: bindTarget[bindedProperty] = currentText
@@ -32,7 +32,7 @@ ComboBox {
             text: modelData
             color: modelData.includes("Red") ? "red" : "blue"
 
-            font.pixelSize: 24
+            font.pixelSize: 24 * Constants.scalar
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }
@@ -44,7 +44,7 @@ ComboBox {
         text: label
         color: Constants.text
 
-        font.pixelSize: 20
+        font.pixelSize: 20 * Constants.scalar
 
         anchors {
             left: parent.left

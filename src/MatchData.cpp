@@ -18,7 +18,6 @@ Schedule MatchData::schedule() {
 #ifndef Q_OS_WASM
 void MatchData::downloadSchedule(const QString &event) {
     QDir targetDir = QDir::home();
-    qDebug() << targetDir;
 
     QNetworkRequest request = QNetworkRequest("https://www.thebluealliance.com/api/v3/event/" + event + "/matches/simple");
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");

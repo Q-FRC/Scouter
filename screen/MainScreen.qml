@@ -12,6 +12,11 @@ Rectangle {
     height: Constants.height
     color: Constants.bg
 
+    Component.onCompleted: {
+        Constants.scalar = Math.max(width / Constants.width, height / Constants.height)
+        Constants.isVertical = width < height
+    }
+
     SwipeView {
         id: swipe
 
@@ -97,7 +102,7 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        ColumnLayout {
             Layout.fillWidth: true
 
             Text {
@@ -106,7 +111,7 @@ Rectangle {
 
                 font {
                     bold: true
-                    pixelSize: 25
+                    pixelSize: 25 * Constants.scalar
                 }
 
                 text: match.station
@@ -119,7 +124,7 @@ Rectangle {
 
                 font {
                     bold: true
-                    pixelSize: 25
+                    pixelSize: 25 * Constants.scalar
                 }
 
                 text: "Team " + match.team

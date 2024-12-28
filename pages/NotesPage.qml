@@ -40,7 +40,7 @@ Rectangle {
             right: parent.right
         }
 
-        font.pixelSize: 25
+        font.pixelSize: 25 * Constants.scalar
 
         color: Constants.text
 

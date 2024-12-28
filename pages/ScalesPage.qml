@@ -25,8 +25,8 @@ Rectangle {
             top: banner.bottom
             bottom: parent.bottom
 
-            topMargin: 8
-            bottomMargin: 8
+            topMargin: 8 * Constants.scalar
+            bottomMargin: 8 * Constants.scalar
 
             left: parent.left
             right: parent.right
@@ -36,7 +36,7 @@ Rectangle {
             model: scalesModel
 
             delegate: ScaleItem {
-                Layout.preferredHeight: 100
+                Layout.preferredHeight: 100 * Constants.scalar
                 Layout.fillWidth: true
 
                 bindTarget: scalePage

@@ -7,7 +7,7 @@ import QFRCScouter
 ColumnLayout {
     id: scaleItem
 
-    spacing: 5
+    spacing: 25
 
     function clear() {
         rep.itemAt(2).control.checked = true
@@ -32,7 +32,7 @@ ColumnLayout {
         Layout.fillWidth: true
 
         color: Constants.text
-        font.pixelSize: 25
+        font.pixelSize: 25 * Constants.scalar
         text: title
     }
 
@@ -45,7 +45,7 @@ ColumnLayout {
             model: ["Awful", "Bad", "N/A", "Fine", "Good", "Great", "Elite"]
 
             ScaleCheckbox {
-                Layout.preferredWidth: 100
+                Layout.preferredWidth: 70 * Constants.scalar * (Constants.isVertical ? 0.8 : 1.0)
 
                 required property string modelData
                 required property int index
@@ -66,14 +66,14 @@ ColumnLayout {
     }
 
     Text {
-        font.pixelSize: 16
+        font.pixelSize: 16 * Constants.scalar
         wrapMode: Text.WordWrap
         text: desc
         color: Constants.text
 
-        Layout.leftMargin: 15
-        Layout.rightMargin: 50
+        Layout.leftMargin: 15 * Constants.scalar
+        Layout.rightMargin: 50 * Constants.scalar
 
-        Layout.topMargin: 50
+        Layout.topMargin: 50 * Constants.scalar
     }
 }

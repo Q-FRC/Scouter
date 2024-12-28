@@ -37,7 +37,7 @@ Rectangle {
             right: parent.right
         }
 
-        columns: platform.isAndroid() ? 1 : 2
+        columns: 2
 
         Repeater {
             model: phase.model
@@ -50,7 +50,7 @@ Rectangle {
 
                     MatchSpinBox {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 100
+                        Layout.preferredHeight: 100 * Constants.scalar
 
                         bindTarget: phase
                         bindedProperty: "values"
@@ -67,7 +67,7 @@ Rectangle {
 
                     LabeledCheckbox {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 30
+                        Layout.preferredHeight: 30 * Constants.scalar
 
                         bindTarget: phase
                         bindedProperty: "values"

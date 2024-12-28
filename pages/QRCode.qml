@@ -24,7 +24,7 @@ Rectangle {
             left: parent.left
             right: parent.right
 
-            margins: 100
+            margins: 100 * Constants.scalar
         }
 
         fillMode: Image.PreserveAspectFit

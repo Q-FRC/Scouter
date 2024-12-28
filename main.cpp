@@ -13,14 +13,6 @@
 
 int main(int argc, char *argv[])
 {
-    qputenv("QML_COMPAT_RESOLVE_URLS_ON_ASSIGNMENT", "1");
-    qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1");
-    qputenv("QT_ENABLE_HIGHDPI_SCALING", "1");
-
-#ifdef Q_OS_ANDROID
-    qputenv("QT_SCALE_FACTOR", QByteArray::number(0.5));
-#endif
-
     QGuiApplication app(argc, argv);
 
     QZXing::registerQMLTypes();

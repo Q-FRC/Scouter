@@ -19,22 +19,23 @@ Item {
 
     CheckBox {
         id: control
-        font.pixelSize: 18
+        font.pixelSize: 18 * Constants.scalar
 
-        indicator.implicitHeight: 40
-        indicator.implicitWidth: 40
+        indicator.implicitHeight: 35 * Constants.scalar
+        indicator.implicitWidth: 35 * Constants.scalar
 
         onCheckedChanged: if (checked) bindTarget[bindedProperty][scaleIdx] = idx
+    }
 
+    Text {
+        font.pixelSize: 18 * Constants.scalar
         text: parent.text
+        color: Constants.text
+        verticalAlignment: Text.AlignVCenter
 
-        contentItem: Text {
-            text: control.text
-            font: control.font
-            opacity: enabled ? 1.0 : 0.3
-            color: Constants.text
-            verticalAlignment: Text.AlignVCenter
-            leftPadding: control.indicator.width + control.spacing
+        anchors {
+            bottom: control.top
+            horizontalCenter: control.horizontalCenter
         }
     }
 }

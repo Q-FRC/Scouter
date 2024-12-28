@@ -15,4 +15,7 @@ QtObject {
 
     readonly property color bg: config.object.backgroundColor
     readonly property color text: config.object.textColor
+
+    property double scalar: 1.0
+    property bool isVertical: false
 }
