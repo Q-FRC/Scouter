@@ -52,13 +52,9 @@ jobs:
           tar -czf QFRCScouter-${{ env.VERSION }}.tar.gz QFRCScouter-${{ env.VERSION }}
           mv QFRCScouter-Android*/*.apk QFRCScouter-Android-${{ env.VERSION }}.apk
 
-          mkdir artifact html
-          tar xf artifact.tar -C artifact
-          cd artifact
-          cp {Scouter,qtloader}.js index.html qtlogo.svg Scouter.wasm ../html
-          cd ..
+          tar xf github-pages/artifact.tar -C wasm
 
-          zip -r QFRCScouter-Web-${{ env.VERSION }}.zip html/*
+          zip -r QFRCScouter-Web-${{ env.VERSION }}.zip wasm/*
 
       - name: Create release
         id: create_release
