@@ -233,7 +233,7 @@ jobs:
 
     - name: Upload Pages WASM
       if: matrix.qt_arch == 'wasm_singlethread'
-      uses: actions/upload-pages-artifact@v4.0.0
+      uses: actions/upload-pages-artifact@v3.0.0
       with:
         path: ${{ env.BUILD_DIR }}
         retention-days: 14
