@@ -1,3 +1,4 @@
-[submodule "Qt-QrCodeGenerator"]
-	path = Qt-QrCodeGenerator
-	url = https://github.com/alex-spataru/Qt-QrCodeGenerator.git
+[submodule "qzxing"]
+	path = qzxing
+	url = https://github.com/victronenergy/qzxing.git
+	branch = 1350-add-qr-code-generation-support-to-gui-v2
