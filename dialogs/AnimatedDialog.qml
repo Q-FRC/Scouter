@@ -32,8 +32,7 @@ Dialog {
     }
 
     header: Rectangle {
-        topLeftRadius: dia.radius
-        topRightRadius: dia.radius
+        radius: dia.radius
 
         color: colorful ? Constants.accent : Constants.bg
 
@@ -98,8 +97,7 @@ Dialog {
 
             color: Constants.bg
 
-            bottomLeftRadius: dia.radius
-            bottomRightRadius: dia.radius
+            tadius: dia.radius
         }
     }
 }
