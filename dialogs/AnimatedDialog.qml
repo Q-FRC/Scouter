@@ -97,7 +97,7 @@ Dialog {
 
             color: Constants.bg
 
-            tadius: dia.radius
+            radius: dia.radius
         }
     }
 }
