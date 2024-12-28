@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick.Layouts 6.6
 
 import QFRCScouter
 
@@ -49,13 +49,15 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        matchData.failed.connect(() => fail.open());
-        matchData.failedWrite.connect(() => failWrite.open());
-        matchData.invalidCode.connect(() => invalidCode.open());
-        matchData.successful.connect(() => {
-                                         team = matchData.getTeam(station, match)
-                                         success.open()
-                                     });
+        if (!platform.isWeb()) {
+            matchData.failed.connect(() => fail.open());
+            matchData.failedWrite.connect(() => failWrite.open());
+            matchData.invalidCode.connect(() => invalidCode.open());
+            matchData.successful.connect(() => {
+                                             team = matchData.getTeam(station, match)
+                                             success.open()
+                                         });
+        }
     }
 
     TitleBanner {
