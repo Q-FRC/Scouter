@@ -39,6 +39,8 @@ android {
     buildToolsVersion androidBuildToolsVersion
     ndkVersion androidNdkVersion
 
+    namespace 'org.qfrc.QFRCScouter'
+
     // Extract native libraries from the APK
     packagingOptions.jniLibs.useLegacyPackaging true
 

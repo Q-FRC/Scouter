@@ -19,12 +19,12 @@ option(USE_SYSTEM_NTCORE OFF "Use the system NTCore (Linux only)")
 option(USE_SYSTEM_PROTOBUF OFF "Use the system protobuf (Linux only)")
 
 if(EMSCRIPTEN)
-    find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Svg)
+    find_package(Qt6 6.6 REQUIRED COMPONENTS Quick QuickControls2 Svg)
 else()
-    find_package(Qt6 6.7 REQUIRED COMPONENTS Quick QuickControls2 Network Svg)
+    find_package(Qt6 6.6 REQUIRED COMPONENTS Quick QuickControls2 Network Svg)
 endif()
 
-qt_standard_project_setup(REQUIRES 6.7)
+qt_standard_project_setup(REQUIRES 6.6)
 
 if(WIN32)
     set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${Scouter_APP_NAME}.rc)
