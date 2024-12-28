@@ -10,34 +10,37 @@ The match number is next, which can be incremented and decremented with the plus
 
 Finally, if the schedule is set up properly, the scouter can set the alliance station they plan to scout. The scouting app will automatically set the team number for each match. The selected station & team number will always be displayed at the bottom.
 
-![TeamInfo](/img/TeamInfo.png?raw=true)
+![TeamInfo](./img/TeamInfo.png)
 
 ### Auto Data
 Scouting for autonomous data begins. Press the plus and minus buttons on each of the relevant fields as needed, and select the checkboxes at the end of the autonomous period as needed.
 
-![Auto](/img/Auto.png?raw=true)
+![Auto](./img/Auto.png)
 
 ### Teleop Data
 Scouting for teleop & endgame data begins. Operation here is identical to Auto scouting.
 
-![Tele](/img/Tele.png?raw=true)
-
-### Notes
-Enter any quick thoughts on the team you're scouting. You will be asked to quantify some things later, so don't go into too much detail.
-
-![Notes](/img/Notes.png?raw=true)
+![Tele](./img/Tele.png)
 
 ### Opinions
 Select your opinions on various factors here, ranging from very bad to elite. If the team didn't contribute in that factor, select N/A.
 
-![Scales](/img/Scales.png?raw=true)
+![Scales](./img/Scales.png)
+
+### Notes
+Enter any quick thoughts on the team you're scouting. You will be asked to quantify some things later, so don't go into too much detail.
+
+![Notes](./img/Notes.png)
+
 
 ### QR Code
-You're done! Present your QR code to the scanner to be put into the spreadsheet. Once done, select "next match". This will bring you to the beginning, and increment the match number, selecting the correct team for your alliance station.
+You're done! Present your QR code to the scanner to be put into the spreadsheet. Once done, press "Next". This will bring you to the beginning, and increment the match number, selecting the correct team for your alliance station.
 
-If the scan failed and you already selected "next match", OR if you wish to change some data, press "Back to QR Code" on the first page.
+![QRCode](./img/QRCode.png)
 
-![QRCode](/img/QRCode.png?raw=true)
+If the scan failed and you already pressed "Next", OR if you wish to change some data, press "Back to QR Code" on the first page.
+
+![Welcome](./img/Welcome.png)
 
 ## Self-Hosting
 
@@ -54,7 +57,7 @@ If you plan to put out release builds, then you will need to set up an Android K
 
 Your final secrets should look like this:
 
-![Secrets](/img/Secrets.png?raw=true)
+![Secrets](./img/Secrets.png)
 
 Push any desired changes (config, schedule, etc) and your page will be hosted at https://\<yourName\>.github.io/Scouter. You can access native builds in the Actions tab of your repository.
 
@@ -73,6 +76,7 @@ Once the schedule is all set, scouters can select an alliance station to use. Th
 
 ### Multi-platform
 QFRCScouter has several platforms it can run on:
+
 - Windows
 - Linux
 - Android
@@ -89,8 +93,11 @@ QFRCScouter is configurable through a simple JSON file. The format is described 
 
 - `welcome` (str): The welcome notice that shows up on the first page of the app.
 - `button` (color): The accent color of most of the buttons present in the app.
+- `buttonPressed` (color): What color most of the buttons will be when pressed down.
 - `buttonText` (color): The text color of most of the buttons present in the app.
 - `backgroundColor` (color): The color of the background of the application.
+- `accent` (color): The accent of some small parts of the application.
+- `qmlAccent` (color): The QML accent used for certain UI elements. See the table at the bottom for options.
 - `textColor` (color): The color of most of the text of the application.
 - `pages` (obj): Describes the data present in the auto, teleop, and scale pages.
     * `auto` (arr) & `tele` (arr): Contains data present in the auto and teleop data pages.
@@ -104,3 +111,8 @@ QFRCScouter is configurable through a simple JSON file. The format is described 
     * `scales` (arr): Contains data present in the auto and teleop data pages.
         - `title` (str): The large text shown next to the scales.
         - `desc` (str): Fine print shown below the scales, for additional details.
+        
+Available QML accents:
+
+![accents](https://github.com/user-attachments/assets/489e6851-612b-4d41-805a-3872617eb0f6)
+

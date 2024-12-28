@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=QFRCScouter
-Comment=Reliable, high-performance scouting app for FRC.
-Exec=QFRCScouter
-Icon=QFRCScouter
+Name=@Scouter_APP_NAME@
+Comment=An offline, QR-Based scouter for FRC use.
+Exec=@Scouter_EXEC_NAME@
+Icon=@Scouter_APP_NAME@
 Categories=Education;Utility

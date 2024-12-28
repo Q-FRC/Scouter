@@ -3,8 +3,8 @@
 #endif
 #include <windows.h>
 
-IDI_ICON1               ICON    DISCARDABLE     "QFRCScouter.ico"
-10255 RT_MANIFEST "QFRCScouter.manifest"
+IDI_ICON1               ICON    DISCARDABLE     "@Scouter_APP_NAME@.ico"
+10255 RT_MANIFEST "@Scouter_APP_NAME@.manifest"
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION     @Scouter_GIT_TAG_NUMERO@
@@ -15,10 +15,10 @@ BEGIN
         BEGIN
                 BLOCK "000004b0"
                 BEGIN
-                        VALUE "CompanyName", "binex-dsk"
-                        VALUE "FileDescription", "QFRCScouter"
+                        VALUE "CompanyName", "@Scouter_ORG_NAME@"
+                        VALUE "FileDescription", "@Scouter_APP_NAME@"
                         VALUE "FileVersion", "@Scouter_GIT_TAG@"
-                        VALUE "ProductName", "QFRCScouter"
+                        VALUE "ProductName", "@Scouter_APP_NAME@"
                         VALUE "ProductVersion", "@Scouter_GIT_TAG@"
                 END
         END

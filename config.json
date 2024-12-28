@@ -1,14 +1,18 @@
 {
-    "welcome": "Colloquially \"Nickbotics.io\"\nWelcome to QFRCScouter! Hit the \"next\" button to begin scouting.",
-    "button": "#ff4444",
+    "welcome": "Welcome to QFRCScouter! Hit the \"next\" button to begin scouting.",
+    "button": "#cc0000",
+    "buttonPressed": "#aa0000",
     "buttonText": "#000000",
     "backgroundColor": "#000000",
     "textColor": "#dedede",
+    "accent": "red",
+    "qmlAccent": "Red",
     "pages": {
         "auto": [
             {
                 "type": "int",
                 "color": "#FF0000",
+                "textColor": "#dedede",
                 "min": 0,
                 "max": 99,
                 "text": "Wing Pieces Acquired"
@@ -24,6 +28,7 @@
             {
                 "type": "int",
                 "color": "#FF5500",
+                "textColor": "#dedede",
                 "min": 0,
                 "max": 99,
                 "text": "Amp Pieces Scored"
@@ -53,6 +58,7 @@
             {
                 "type": "int",
                 "color": "#FF0000",
+                "textColor": "#dedede",
                 "min": 0,
                 "max": 99,
                 "text": "Short Acquire"
@@ -68,6 +74,7 @@
             {
                 "type": "int",
                 "color": "#FF5500",
+                "textColor": "#dedede",
                 "min": 0,
                 "max": 99,
                 "text": "Shuttled Notes"
@@ -91,6 +98,7 @@
             {
                 "type": "int",
                 "color": "#0055FF",
+                "textColor": "#dedede",
                 "min": 0,
                 "max": 99,
                 "text": "Missed"
@@ -115,7 +123,7 @@
         "scales": [
             {
                 "title": "Driver",
-                "desc": "How did the driver do? Did they hit field elements/robots? Did they drive spastically, or smooth? Were they quick to pick up, score, operate?"
+                "desc": "How did the driver do? Did they hit field elements/robots?\nDid they drive spastically, or smooth? Were they quick to pick up, score, operate?"
             },
             {
                 "title": "Defense Skill",
@@ -127,7 +135,7 @@
             },
             {
                 "title": "Shuttling",
-                "desc": "If they shuttled, how good was it? Did notes get stolen? Did the notes get put in the corner (good), source (bad), or off the field (really bad)?"
+                "desc": "If they shuttled, how good was it? Did notes get stolen?\nDid the notes get put in the corner (good), source (bad), or off the field (really bad)?"
             }
         ]
     }

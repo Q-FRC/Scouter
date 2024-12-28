@@ -1,80 +1,38 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
-project(QFRCScouter VERSION 0.1 LANGUAGES CXX)
-set(CMAKE_AUTOUIC_SEARCH_PATHS "ui/")
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(Scouter_APP_NAME QFRCScouter)
+set(Scouter_EXEC_NAME Scouter)
+set(Scouter_ORG_NAME "Q-FRC")
+set(Scouter_GIT_REPO https://github.com/${Scouter_ORG_NAME}/${Scouter_EXEC_NAME})
 
 if(NOT EMSCRIPTEN)
     option(TBA_AUTH_KEY "TBA authentication key." "")
 endif()
 
+project(${Scouter_APP_NAME} VERSION 0.1 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_AUTORCC ON)
+
+option(USE_SYSTEM_NTCORE OFF "Use the system NTCore (Linux only)")
+option(USE_SYSTEM_PROTOBUF OFF "Use the system protobuf (Linux only)")
+
 if(EMSCRIPTEN)
-    find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Svg)
-    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg)
+    find_package(Qt6 6.6 REQUIRED COMPONENTS Quick QuickControls2 Svg)
 else()
-    find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Svg Network)
-    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg Network)
+    find_package(Qt6 6.6 REQUIRED COMPONENTS Quick QuickControls2 Network Svg)
 endif()
 
-set(QRCODE_SOURCES
-    Qt-QrCodeGenerator/src/QrCodeGenerator.cpp
-    Qt-QrCodeGenerator/src/QrCodeGenerator.h
-    Qt-QrCodeGenerator/src/qrcodegen/qrcodegen.cpp
-    Qt-QrCodeGenerator/src/qrcodegen/qrcodegen.h)
-
-set(PROJECT_SOURCES
-    src/main.cpp
-    src/MainWindow.cpp
-
-    src/WelcomePage.cpp
-    src/TeamInfo.cpp
-    src/MatchPage.cpp
-
-    # ================== #
-    include/MainWindow.h
-
-    include/WelcomePage.h
-    include/TeamInfo.h
-    include/MatchPage.h
-
-    # ================== #
-    ui/MainWindow.ui
-
-    ui/WelcomePage.ui
-    ui/MatchPage.ui
-
-
-    include/QRCode.h src/QRCode.cpp ui/QRCode.ui
-    include/BetterSpinBox.h src/BetterSpinBox.cpp ui/BetterSpinBox.ui
-    include/Notes.h src/Notes.cpp ui/Notes.ui
-    include/SubjectiveScales.h src/SubjectiveScales.cpp ui/SubjectiveScales.ui
-
-    tba/Schedule.h tba/Schedule.cpp
-    tba/Match.h tba/Match.cpp
-
-    include/MatchData.h src/MatchData.cpp
-    Config.qrc
-)
+qt_standard_project_setup(REQUIRES 6.6)
 
 if(WIN32)
-    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/QFRCScouter.rc)
+    set(RCS_FILE ${CMAKE_CURRENT_BINARY_DIR}/program_info/${Scouter_APP_NAME}.rc)
 endif()
 
 if(ANDROID)
     set(ANDROID_GUI ON)
     set(MANIFEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml)
-endif()
-
-if(EMSCRIPTEN)
-    set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/WebTeamInfo.ui Schedule.qrc)
-else()
-    set(PROJECT_SOURCES ${PROJECT_SOURCES} ui/TeamInfo.ui)
 endif()
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
@@ -89,61 +47,153 @@ message(STATUS "Git tag: ${Scouter_GIT_TAG}")
 message(STATUS "Git refspec: ${Scouter_GIT_REFSPEC}")
 
 string(REPLACE "-beta" "." Scouter_GIT_TAG_NUMERO ${Scouter_GIT_TAG})
+string(REPLACE "-rc" "." Scouter_GIT_TAG_NUMERO ${Scouter_GIT_TAG_NUMERO})
 
-add_subdirectory(program_info)
+string(REPLACE "." " " Scouter_SPLIT_VERSION ${Scouter_GIT_TAG_NUMERO})
 
-qt_add_executable(QFRCScouter
-    MANUAL_FINALIZATION
-    ${MANIFEST_FILE}
-    ${RCS_FILE}
-    ${QRCODE_SOURCES}
-    ${PROJECT_SOURCES}
+separate_arguments(Scouter_SPLIT_VERSION)
 
-    include/Scale.h src/Scale.cpp ui/Scale.ui
+list(GET Scouter_SPLIT_VERSION 0 Scouter_VERSION_MAJOR)
+list(GET Scouter_SPLIT_VERSION 1 Scouter_VERSION_MINOR)
+list(GET Scouter_SPLIT_VERSION 2 Scouter_VERSION_HOTFIX)
+
+project(${Scouter_APP_NAME} VERSION ${Scouter_GIT_TAG_NUMERO} LANGUAGES CXX)
+
+# Build Date
+string(TIMESTAMP TODAY "%Y-%m-%d")
+set(Scouter_BUILD_TIMESTAMP "${TODAY}")
+
+add_subdirectory("program_info")
+
+set(QRC_FILES
+    config.qrc
+    Schedule.qrc
 )
 
-if (EMSCRIPTEN)
-    target_link_libraries(QFRCScouter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg)
-else()
-    target_link_libraries(QFRCScouter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg Qt${QT_VERSION_MAJOR}::Network)
-endif()
+qt_add_executable(${Scouter_EXEC_NAME}
+    main.cpp
+    ${MANIFEST_FILE}
+    ${QRC_FILES}
+    ${RCS_FILE}
+)
+
+set_source_files_properties(Constants.qml
+    PROPERTIES
+    QT_QML_SINGLETON_TYPE true
+)
+
+set(QML_ELEMENTS
+    Main
+    Constants
+
+    screen/MainScreen
+    screen/NavButton
+
+    pages/WelcomePage
+    pages/MatchInfo
+    pages/PhasePage
+    pages/NotesPage
+    pages/ScalesPage
+
+    items/TitleBanner
+    items/LabeledSpinBox
+    items/MatchSpinBox
+    items/LabeledTextField
+    items/LabeledComboBox
+    items/LabeledCheckbox
+    items/ScaleCheckbox
+    items/ScaleItem
+
+    dialogs/AnimatedDialog
+    dialogs/ErrorDialog
+)
+
+set(ELEMENTS
+    Config
+    MatchData
+    PlatformHelper
+
+    models/PhaseDataModel
+    models/ScalesModel
+)
+
+foreach(ELEMENT ${ELEMENTS})
+    set(HEADERS ${HEADERS} include/${ELEMENT}.h)
+    set(SOURCES ${SOURCES} src/${ELEMENT}.cpp)
+endforeach()
+
+foreach(QML ${QML_ELEMENTS})
+    set(QML_FILES ${QML_FILES} ${QML}.qml)
+endforeach()
+
+set(HEADERS
+    ${HEADERS}
+
+    tba/Match.h
+    tba/Schedule.h
+)
+
+set(SOURCES
+    ${SOURCES}
+
+    tba/Match.cpp
+    tba/Schedule.cpp
+)
+
+add_subdirectory(buildconfig)
+
+set(QZXING_USE_QML ON)
+set(QZXING_USE_ENCODER ON)
+add_subdirectory(qzxing/src/)
+
+qt_add_qml_module(${Scouter_EXEC_NAME}
+    URI ${Scouter_APP_NAME}
+    VERSION 1.0
+    QML_FILES ${QML_FILES}
+
+    SOURCES ${SOURCES} ${HEADERS}
+    QML_FILES pages/QRCode.qml
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
-# explicit, fieed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-    set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.QFRCScouter)
-endif()
-set_target_properties(QFRCScouter PROPERTIES
-    ${BUNDLE_ID_OPTION}
+# explicit, fixed bundle identifier manually though.
+set_target_properties(${Scouter_EXEC_NAME} PROPERTIES
+    #    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.${Scouter_EXEC_NAME}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
-include(GNUInstallDirs)
-install(TARGETS QFRCScouter
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+target_link_libraries(${Scouter_EXEC_NAME}
+    PRIVATE Qt6::Quick
+    Qt6::QuickControls2
+    Qt6::Network
+    qzxing
+    BuildConfig
 )
 
-target_include_directories(QFRCScouter PRIVATE include/)
-target_include_directories(QFRCScouter PRIVATE tba/)
-target_include_directories(QFRCScouter PRIVATE Qt-QrCodeGenerator/src)
+target_include_directories(${Scouter_EXEC_NAME} PRIVATE include/)
+target_include_directories(${Scouter_EXEC_NAME} PRIVATE tba/)
 
 if(NOT EMSCRIPTEN)
     add_compile_definitions(TBA_AUTH_KEY="${TBA_AUTH_KEY}")
 endif()
 
-if (EMSCRIPTEN)
-    target_compile_options(QFRCScouter PRIVATE "-sNO_DISABLE_EXCEPTION_CATCHING")
-    target_link_options(QFRCScouter PRIVATE "-sNO_DISABLE_EXCEPTION_CATCHING")
-endif()
+include(GNUInstallDirs)
+install(TARGETS ${Scouter_EXEC_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+set_target_properties(${Scouter_EXEC_NAME} PROPERTIES
+    MACOSX_BUNDLE TRUE
+)
 
 if (ANDROID)
-    set_target_properties(QFRCScouter PROPERTIES
+    set_target_properties(${Scouter_EXEC_NAME} PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
         COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} MOBILE")
 
@@ -151,14 +201,25 @@ if (ANDROID)
     FetchContent_Declare(
         android_openssl
         DOWNLOAD_EXTRACT_TIMESTAMP true
-        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
-    )
+        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip)
+
     FetchContent_MakeAvailable(android_openssl)
     include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
 
-    add_android_openssl_libraries(QFRCScouter)
+    add_android_openssl_libraries(${Scouter_EXEC_NAME})
 endif()
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(QFRCScouter)
+if(UNIX AND APPLE)
+    # Mac bundle settings
+    set(MACOSX_BUNDLE_BUNDLE_NAME "${Scouter_APP_NAME}")
+    set(MACOSX_BUNDLE_INFO_STRING "${Scouter_APP_NAME}: An offline, QR-Based scouter for FRC use.")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.${Scouter_ORG_NAME}.${Scouter_APP_NAME}")
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${Scouter_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${Scouter_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${Scouter_GIT_TAG_NUMERO}")
+    set(MACOSX_BUNDLE_ICON_FILE ${Scouter_APP_NAME}.icns)
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyleft 2024 ${Scouter_ORG_NAME}")
+
+    # install as bundle
+    set(INSTALL_BUNDLE "full")
 endif()

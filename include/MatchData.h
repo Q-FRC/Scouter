@@ -9,10 +9,20 @@ class MatchData : public QObject
 private:
     Schedule m_schedule = Schedule();
 public:
-    MatchData();
+    MatchData(QObject *parent);
 
     Schedule schedule();
 
+    Q_INVOKABLE int getTeam(const QString &station, const int match);
+
+#ifndef Q_OS_WASM
+    Q_INVOKABLE void downloadSchedule(const QString &event);
+signals:
+    void successful();
+    void failed();
+    void failedWrite();
+    void invalidCode();
+#endif
 public slots:
     void reloadSchedule();
 };
