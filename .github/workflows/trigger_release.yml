@@ -52,6 +52,7 @@ jobs:
           tar -czf QFRCScouter-${{ env.VERSION }}.tar.gz QFRCScouter-${{ env.VERSION }}
           mv QFRCScouter-Android*/*.apk QFRCScouter-Android-${{ env.VERSION }}.apk
 
+          mkdir wasm
           tar xf github-pages/artifact.tar -C wasm
 
           zip -r QFRCScouter-Web-${{ env.VERSION }}.zip wasm/*
