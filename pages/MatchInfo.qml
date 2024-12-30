@@ -76,6 +76,37 @@ Rectangle {
             bottomMargin: 8
         }
 
+        RowLayout {
+            visible: !platform.isWeb();
+            Layout.fillWidth: true
+            Layout.preferredHeight: 80 * Constants.scalar
+
+            LabeledTextField {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 80 * Constants.scalar
+
+                label: "Event Code"
+
+                bindTarget: matchInfo
+                bindedProperty: "event"
+            }
+
+            Button {
+                Layout.preferredHeight: 80 * Constants.scalar
+                font.pixelSize: 30 * Constants.scalar
+
+                background: Rectangle {
+                    radius: 5
+
+                    color: parent.pressed ? Constants.buttonPressed : Constants.button
+                }
+
+                Universal.foreground: Constants.buttonText
+                text: "Download Schedule"
+                onClicked: matchData.downloadSchedule(matchInfo.event)
+            }
+        }
+
         LabeledTextField {
             Layout.fillWidth: true
             Layout.preferredHeight: 80 * Constants.scalar
@@ -109,37 +140,6 @@ Rectangle {
 
             bindTarget: matchInfo
             bindedProperty: "team"
-        }
-
-        RowLayout {
-            visible: !platform.isWeb();
-            Layout.fillWidth: true
-            Layout.preferredHeight: 80 * Constants.scalar
-
-            LabeledTextField {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 80 * Constants.scalar
-
-                label: "Event Code"
-
-                bindTarget: matchInfo
-                bindedProperty: "event"
-            }
-
-            Button {
-                Layout.preferredHeight: 80 * Constants.scalar
-                font.pixelSize: 30 * Constants.scalar
-
-                background: Rectangle {
-                    radius: 5
-
-                    color: parent.pressed ? Constants.buttonPressed : Constants.button
-                }
-
-                Universal.foreground: Constants.buttonText
-                text: "Download Schedule"
-                onClicked: matchData.downloadSchedule(matchInfo.event)
-            }
         }
 
         LabeledComboBox {

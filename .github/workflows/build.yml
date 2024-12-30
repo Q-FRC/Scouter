@@ -231,19 +231,27 @@ jobs:
       # UPLOAD BUILDS
       ##
 
-    - name: Fix WASM index.html
+    - name: Fix WASM files
       if: matrix.qt_arch == 'wasm_singlethread'
       shell: bash
       run: |
         cd ${{ env.BUILD_DIR }}
-        cp Scouter.html index.html
+
+        echo "mkdir"
+        mkdir ../wasm
+        echo "fixing index"
+        mv Scouter.html index.html
+        echo "copying files"
+        cp {Scouter,qtloader}.js index.html Scouter.wasm ../wasm
+        echo "copying logo"
+        cp program_info/QFRCScouter.svg ../wasm/qtlogo.svg
 
     - name: Upload Pages WASM
       if: matrix.qt_arch == 'wasm_singlethread'
       uses: actions/upload-pages-artifact@v3.0.0
       with:
-        path: ${{ env.BUILD_DIR }}
-        retention-days: 14
+        path: wasm
+        retention-days: 365
 
     - name: Deploy Pages WASM
       if: matrix.qt_arch == 'wasm_singlethread'
