@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QStandardPaths>
 
 MatchData::MatchData(QObject *parent)
     : QObject(parent) {
@@ -17,7 +18,9 @@ Schedule MatchData::schedule() {
 
 #ifndef Q_OS_WASM
 void MatchData::downloadSchedule(const QString &event) {
-    QDir targetDir = QDir::home();
+    QDir targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    // ensure path exists
+    targetDir.mkpath(".");
 
     QNetworkRequest request = QNetworkRequest("https://www.thebluealliance.com/api/v3/event/" + event + "/matches/simple");
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");

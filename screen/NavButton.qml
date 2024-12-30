@@ -19,4 +19,7 @@ Button {
     }
     
     Universal.foreground: Constants.buttonText
+
+    // if this isn't done, then the previously selected textbox will never lose focus
+    onClicked: focus = true
 }
