@@ -18,6 +18,10 @@ public:
     QJsonObject object() const;
     void setObject(const QJsonObject &newObject);
 
+#if !defined(Q_OS_WASM) && !defined(Q_OS_ANDROID)
+    void saveCsv() const;
+#endif
+
     PhaseDataModel *autoModel() const;
 
     PhaseDataModel *teleModel() const;

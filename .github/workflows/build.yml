@@ -84,15 +84,14 @@ jobs:
         distribution: 'temurin' # See 'Supported distributions' for available options
         java-version: '21'
 
-    - name: Install Qt ${{ matrix.qt_version }} (Windows, macOS)
-      if: runner.os != 'Linux'
+    - name: Install Qt ${{ matrix.qt_version }} (Host)
       uses: Kidev/install-qt-action@v4.2.0
       with:
         cache: on
         version: ${{ matrix.qt_version }}
 
-    - name: Install Qt ${{ matrix.qt_version }} (Linux)
-      if: runner.os == 'Linux'
+    - name: Install Qt ${{ matrix.qt_version }} (Wasm/Android)
+      if: runner.os == 'Linux' && matrix.qt_arch != 'gcc_64'
       uses: Kidev/install-qt-action@v4.2.0
       with:
         cache: on
@@ -102,7 +101,6 @@ jobs:
         arch: ${{ matrix.qt_arch }}
         set-env: true
         aqtsource: 'git+https://github.com/Kidev/aqtinstall.git@wasm'
-        extra: '--autodesktop'
 
     - name: Install Build Dependencies (macOS)
       if: runner.os == 'macOS'
