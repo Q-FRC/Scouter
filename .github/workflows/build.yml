@@ -90,7 +90,7 @@ jobs:
         cache: on
         version: ${{ matrix.qt_version }}
 
-    - name: Install Qt ${{ matrix.qt_version }} (Wasm/Android)
+    - name: Install Qt ${{ matrix.qt_version }} (WASM/Android)
       if: runner.os == 'Linux' && matrix.qt_arch != 'gcc_64'
       uses: Kidev/install-qt-action@v4.2.0
       with:
@@ -100,6 +100,7 @@ jobs:
         version: ${{ matrix.qt_version }}
         arch: ${{ matrix.qt_arch }}
         set-env: true
+        modules: 'qtquick3d'
         aqtsource: 'git+https://github.com/Kidev/aqtinstall.git@wasm'
 
     - name: Install Build Dependencies (macOS)
