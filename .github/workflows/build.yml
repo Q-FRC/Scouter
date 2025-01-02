@@ -128,9 +128,9 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         git submodule update --init
-        declare QTPATH="${{ github.workspace }}/../Qt/${{ matrix.qt_version }}"
+        declare QTPATH="${{ runner.workspace }}/Qt/${{ matrix.qt_version }}"
 
-        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/${{ matrix.qt_arch }} -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }}/lib/cmake -DTBA_AUTH_KEY=${{ secrets.TBA_AUTH_KEY }}
+        cmake -S . -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE=$QTPATH/${{ matrix.qt_arch }}/lib/cmake/Qt6/qt.toolchain.cmake -DQT_HOST_PATH=$QTPATH/gcc_64 -DQT_HOST_PATH_CMAKE_DIR=$QTPATH/gcc_64/lib/cmake -DCMAKE_PREFIX_PATH=$QTPATH/${{ matrix.qt_arch }} -DTBA_AUTH_KEY=${{ secrets.TBA_AUTH_KEY }}
 
     - name: Configure (Windows, macOS)
       if: runner.os != 'Linux'
