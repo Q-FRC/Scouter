@@ -37,6 +37,8 @@ Rectangle {
             right: parent.right
         }
 
+        uniformCellWidths: true
+
         columns: 2
 
         Repeater {

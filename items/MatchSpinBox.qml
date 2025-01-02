@@ -26,7 +26,7 @@ SpinBox {
     from: min
     to: max
 
-    editable: true
+    editable: false
 
     value: 0
     onValueModified: {
@@ -42,6 +42,7 @@ SpinBox {
         verticalAlignment: Qt.AlignVCenter
 
         width: parent.width / 3
+        readOnly: !spin.editable
 
         inputMethodHints: Qt.ImhFormattedNumbersOnly
 

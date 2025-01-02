@@ -21,6 +21,8 @@ Rectangle {
     property list<var> values
 
     ColumnLayout {
+        uniformCellSizes: true
+
         anchors {
             top: banner.bottom
             bottom: parent.bottom

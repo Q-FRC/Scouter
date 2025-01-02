@@ -33,6 +33,8 @@ SpinBox {
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
 
+        readOnly: !spin.editable
+
         width: parent.width / 3
 
         inputMethodHints: Qt.ImhFormattedNumbersOnly
