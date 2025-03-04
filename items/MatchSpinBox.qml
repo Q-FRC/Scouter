@@ -12,6 +12,8 @@ SpinBox {
     required property int min
     required property int max
     required property int idx
+    required property int columns
+    required property int multiplier
 
     property string label: text
 
@@ -30,7 +32,7 @@ SpinBox {
 
     value: 0
     onValueModified: {
-        bindTarget[bindedProperty][idx] = value
+        bindTarget[bindedProperty][idx] = value * multiplier
     }
 
     contentItem: TextInput {
@@ -58,7 +60,7 @@ SpinBox {
 
         Text {
             text: "+"
-            font.pixelSize: spin.font.pixelSize * 2
+            font.pixelSize: spin.font.pixelSize * 1.5
             color: textColor
             anchors.fill: parent
             fontSizeMode: Text.Fit
@@ -77,7 +79,7 @@ SpinBox {
 
         Text {
             text: "-"
-            font.pixelSize: spin.font.pixelSize * 2
+            font.pixelSize: spin.font.pixelSize * 1.5
             color: textColor
             anchors.fill: parent
             fontSizeMode: Text.Fit

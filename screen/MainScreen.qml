@@ -12,10 +12,18 @@ Rectangle {
     height: Constants.height
     color: Constants.bg
 
-    Component.onCompleted: {
-        Constants.scalar = Math.max(width / Constants.width, height / Constants.height)
+    function resetScalar() {
+        Constants.scalar = Math.max(width / Constants.width,
+                                    height / Constants.height)
         Constants.isVertical = width < height
     }
+
+    Component.onCompleted: {
+        resetScalar()
+    }
+
+    onWidthChanged: resetScalar()
+    onHeightChanged: resetScalar()
 
     SwipeView {
         id: swipe
@@ -37,8 +45,6 @@ Rectangle {
             onBackToCode: {
                 auto.doClear = false
                 tele.doClear = false
-                notes.doClear = false
-                scales.doClear = false
 
                 match.match--
 
@@ -62,14 +68,13 @@ Rectangle {
             title: "Teleoperated"
         }
 
-        ScalesPage {
-            id: scales
-        }
+        // ScalesPage {
+        //     id: scales
+        // }
 
-        NotesPage {
-            id: notes
-        }
-
+        // NotesPage {
+        //     id: notes
+        // }
         QRCode {
             id: qr
         }
@@ -77,8 +82,8 @@ Rectangle {
 
     function getTsv() {
         let tsv = []
-        tsv = match.tsv().concat(auto.values.concat(tele.values.concat(scales.values.concat(notes.tsv()))))
-        return tsv;
+        tsv = match.tsv().concat(auto.values.concat(tele.values))
+        return tsv
     }
 
     RowLayout {
@@ -98,7 +103,8 @@ Rectangle {
             text: "Back"
             onClicked: {
                 --swipe.currentIndex
-                if (swipe.currentIndex < 0) swipe.currentIndex = 0
+                if (swipe.currentIndex < 0)
+                    swipe.currentIndex = 0
             }
         }
 
@@ -148,8 +154,6 @@ Rectangle {
 
                     auto.doClear = true
                     tele.doClear = true
-                    notes.doClear = true
-                    scales.doClear = true
 
                     welcome.backAvailable = true
                 }

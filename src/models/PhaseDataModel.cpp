@@ -2,9 +2,25 @@
 
 #include <QJsonObject>
 
-PhaseDataModel::PhaseDataModel(const QJsonArray &array, QObject *parent)
+int PhaseDataModel::columns() const
+{
+    return m_columns;
+}
+
+void PhaseDataModel::setColumns(int newColumns)
+{
+    if (m_columns == newColumns)
+        return;
+    m_columns = newColumns;
+    emit columnsChanged();
+}
+
+PhaseDataModel::PhaseDataModel(const QJsonObject &obj, QObject *parent)
     : QAbstractListModel(parent)
 {
+    m_columns = obj.value("columns").toInt(2);
+
+    QJsonArray array = obj.value("data").toArray();
     for (QJsonValueConstRef ref : array) {
         QJsonObject obj = ref.toObject();
 
@@ -16,6 +32,9 @@ PhaseDataModel::PhaseDataModel(const QJsonArray &array, QObject *parent)
         data.text = obj.value("text").toString("Label");
         data.min = obj.value("min").toInt(0);
         data.max = obj.value("max").toInt(99);
+        data.columns = obj.value("columns").toInt(1);
+        data.choices = obj.value("choices").toVariant().toStringList();
+        data.multiplier = obj.value("multiplier").toInt(1);
 
         beginInsertRows(QModelIndex(), rowCount(), rowCount());
         m_data << data;
@@ -48,6 +67,12 @@ QVariant PhaseDataModel::data(const QModelIndex &index, int role) const
         return p.min;
     case MAX:
         return p.max;
+    case COLUMNS:
+        return p.columns;
+    case CHOICES:
+        return p.choices;
+    case MULT:
+        return p.multiplier;
     default:
         return index.row();
     }
@@ -63,6 +88,9 @@ QHash<int, QByteArray> PhaseDataModel::roleNames() const
     rez[MIN] = "min";
     rez[MAX] = "max";
     rez[IDX] = "idx";
+    rez[COLUMNS] = "columns";
+    rez[CHOICES] = "choices";
+    rez[MULT] = "multiplier";
 
     return rez;
 }

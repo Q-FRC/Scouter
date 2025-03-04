@@ -1,28 +1,32 @@
 #include "MatchData.h"
+#include <QDir>
 #include <QFile>
 #include <QJsonDocument>
-#include <QDir>
-#include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QStandardPaths>
 
 MatchData::MatchData(QObject *parent)
-    : QObject(parent) {
+    : QObject(parent)
+{
     reloadSchedule();
 }
 
-Schedule MatchData::schedule() {
+Schedule MatchData::schedule()
+{
     return m_schedule;
 }
 
 #ifndef Q_OS_WASM
-void MatchData::downloadSchedule(const QString &event) {
+void MatchData::downloadSchedule(const QString &event)
+{
     QDir targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     // ensure path exists
     targetDir.mkpath(".");
 
-    QNetworkRequest request = QNetworkRequest("https://www.thebluealliance.com/api/v3/event/" + event + "/matches/simple");
+    QNetworkRequest request = QNetworkRequest("https://www.thebluealliance.com/api/v3/event/"
+                                              + event + "/matches/simple");
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader("X-TBA-Auth-Key", TBA_AUTH_KEY);
 
@@ -70,7 +74,6 @@ void MatchData::downloadSchedule(const QString &event) {
 }
 #endif
 
-
 int MatchData::getTeam(const QString &stationString, const int match)
 {
     CompLevel level;
@@ -87,7 +90,8 @@ int MatchData::getTeam(const QString &stationString, const int match)
 
     int stationNumber = QString(stationString.back()).toInt();
     bool isBlue = stationString.contains("Blue");
-    if (isBlue) stationNumber += 3;
+    if (isBlue)
+        stationNumber += 3;
 
     QString team = matchObj.value().teamForStation((AllianceStation) stationNumber);
 

@@ -37,7 +37,11 @@ Rectangle {
             right: parent.right
         }
 
-        columns: 2
+        rowSpacing: 4 * Constants.scalar
+
+        uniformCellWidths: true
+
+        columns: model.columns
 
         Repeater {
             model: phase.model
@@ -50,7 +54,9 @@ Rectangle {
 
                     MatchSpinBox {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 100 * Constants.scalar
+                        Layout.preferredHeight: 80 * Constants.scalar
+
+                        Layout.columnSpan: columns
 
                         bindTarget: phase
                         bindedProperty: "values"
@@ -68,6 +74,27 @@ Rectangle {
                     LabeledCheckbox {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 30 * Constants.scalar
+
+                        Layout.columnSpan: columns
+
+                        bindTarget: phase
+                        bindedProperty: "values"
+
+                        Component.onCompleted: {
+                            phase.clear.connect(() => control.checked = false)
+                            phase.values.push(0)
+                        }
+                    }
+                }
+
+                DelegateChoice {
+                    roleValue: "string"
+
+                    StringChoice {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 55 * Constants.scalar
+
+                        Layout.columnSpan: columns
 
                         bindTarget: phase
                         bindedProperty: "values"

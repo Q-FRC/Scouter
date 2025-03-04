@@ -21,9 +21,9 @@ ScouterConfig::ScouterConfig(QObject *parent)
 
     QJsonObject pages = m_object.value("pages").toObject();
 
-    m_autoModel = new PhaseDataModel(pages.value("auto").toArray(), this);
-    m_teleModel = new PhaseDataModel(pages.value("tele").toArray(), this);
-    m_endModel = new PhaseDataModel(pages.value("end").toArray(), this);
+    m_autoModel = new PhaseDataModel(pages.value("auto").toObject(), this);
+    m_teleModel = new PhaseDataModel(pages.value("tele").toObject(), this);
+    m_endModel = new PhaseDataModel(pages.value("end").toObject(), this);
     m_scalesModel = new ScalesModel(pages.value("scales").toArray(), this);
 }
 
