@@ -4,7 +4,7 @@ A powerful, cross-platform, QR-based, configurable scouting app for FRC, designe
 ## Usage
 
 ### Team Info
-Usage of QFRCScouter begins on the "Team Info" page. There, the scouter must enter their initials. If not on the web app, the user needs to have the schedule downloaded; see "Schedule" below.
+Usage of QFRCScouter begins on the "Team Info" page. If not on the web app, the user needs to have the schedule downloaded; see "Schedule" below.
 
 The match number is next, which can be incremented and decremented with the plus and minus buttons.
 
@@ -22,17 +22,6 @@ Scouting for teleop & endgame data begins. Operation here is identical to Auto s
 
 ![Tele](./img/Tele.png)
 
-### Opinions
-Select your opinions on various factors here, ranging from very bad to elite. If the team didn't contribute in that factor, select N/A.
-
-![Scales](./img/Scales.png)
-
-### Notes
-Enter any quick thoughts on the team you're scouting. You will be asked to quantify some things later, so don't go into too much detail.
-
-![Notes](./img/Notes.png)
-
-
 ### QR Code
 You're done! Present your QR code to the scanner to be put into the spreadsheet. Once done, press "Next". This will bring you to the beginning, and increment the match number, selecting the correct team for your alliance station.
 
@@ -41,6 +30,15 @@ You're done! Present your QR code to the scanner to be put into the spreadsheet.
 If the scan failed and you already pressed "Next", OR if you wish to change some data, press "Back to QR Code" on the first page.
 
 ![Welcome](./img/Welcome.png)
+
+### Input Data
+On a computer with the SPAMalytics sheet open, plug in a USB QR scanner. Hover your mouse over a blank "Team Number" section.
+
+![Blank](./img/Blank.png)
+
+Scan the QR code from the scouting device and all the data will be automatically input.
+
+![Filled](./img/Filled.png)
 
 ## Self-Hosting
 
@@ -100,19 +98,20 @@ QFRCScouter is configurable through a simple JSON file. The format is described 
 - `qmlAccent` (color): The QML accent used for certain UI elements. See the table at the bottom for options.
 - `textColor` (color): The color of most of the text of the application.
 - `pages` (obj): Describes the data present in the auto, teleop, and scale pages.
-    * `auto` (arr) & `tele` (arr): Contains data present in the auto and teleop data pages.
-        - `type` (str): either `"bool"` or `"int"` for a checkbox or spinbox respectively. Note that spinboxes are always put before any checkboxes.
-        - `text` (str): The text shown next to the spinbox or checkbox.
-        - `int` fields have additional configuration options:
-            * `color`: The accent color of the button, useful for quick differentiation for scouters.
-            * `textColor`: The color of the text of the button.
-            * `min`: The minimum value.
-            * `max`: The maximum value.
-    * `scales` (arr): Contains data present in the auto and teleop data pages.
-        - `title` (str): The large text shown next to the scales.
-        - `desc` (str): Fine print shown below the scales, for additional details.
-        
+    * `auto` (obj) & `tele` (obj): Contains data present in the auto and teleop data pages.
+        - `columns` (int): The number of columns on the page (default 2).
+        - `data` (arr): The actual data to use.
+            - `type` (str): either `"bool"`, `"int"`, or `"string"` for a checkbox, spin box, or list of checkboxes, respectively.
+            - `text` (str): The text shown next to the spinbox or checkbox.
+            - `columns` (int): How many columns this should take up.
+            - `int` fields:
+                * `color` (color): The accent color of the button, useful for quick differentiation for scouters.
+                * `textColor` (color): The color of the text of the button.
+                * `min` (int): The minimum value.
+                * `max` (int): The maximum value.
+            - `string` fields:
+                * `choices` (string list): What choices to present in the list.
+
 Available QML accents:
 
 ![accents](https://github.com/user-attachments/assets/489e6851-612b-4d41-805a-3872617eb0f6)
-
