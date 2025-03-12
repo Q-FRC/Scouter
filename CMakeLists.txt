@@ -153,6 +153,8 @@ qt_add_qml_module(${Scouter_EXEC_NAME}
 
     SOURCES ${SOURCES} ${HEADERS}
     QML_FILES pages/QRCode.qml
+    QML_FILES items/StringChoice.qml
+    QML_FILES items/StringCheckbox.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

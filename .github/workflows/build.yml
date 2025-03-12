@@ -219,7 +219,6 @@ jobs:
         macdeployqt Scouter.app -qmldir=$QML_DIR_PATH -qmlimport=$QML_SOURCES_PATHS
         ls
 
-        sudo codesign --sign - --deep --force --entitlements ../program_info/App.entitlements --options runtime Scouter.app/Contents/MacOS/Scouter
         chmod a+x Scouter.app/Contents/MacOS/Scouter
         cp ../program_info/QFRCScouter.icns Scouter.app/Contents/Resources
         tar czf ../QFRCScouter.tar.gz Scouter.app

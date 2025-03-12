@@ -20,5 +20,4 @@ bool PlatformHelper::isWeb()
 #else
     return false;
 #endif
-
 }

@@ -7,6 +7,7 @@ Item {
     required property string text
     required property string type
     required property int idx
+    required property int columns
 
     /** what property to bind to */
     required property string bindedProperty
@@ -18,7 +19,7 @@ Item {
 
     CheckBox {
         id: control
-        font.pixelSize: 24 * Constants.scalar
+        font.pixelSize: 20 * Constants.scalar
 
         indicator.implicitHeight: 40 * Constants.scalar
         indicator.implicitWidth: 40 * Constants.scalar

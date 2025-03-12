@@ -8,118 +8,131 @@
     "accent": "red",
     "qmlAccent": "Red",
     "pages": {
-        "auto": [
-            {
-                "type": "int",
-                "color": "#FF0000",
-                "textColor": "#dedede",
-                "min": 0,
-                "max": 99,
-                "text": "Wing Pieces Acquired"
-            },
-            {
-                "type": "int",
-                "color": "#00FF00",
-                "textColor": "#000000",
-                "min": 0,
-                "max": 99,
-                "text": "Neutral Pieces Acquired"
-            },
-            {
-                "type": "int",
-                "color": "#FF5500",
-                "textColor": "#dedede",
-                "min": 0,
-                "max": 99,
-                "text": "Amp Pieces Scored"
-            },
-            {
-                "type": "int",
-                "color": "#CCCC00",
-                "textColor": "#000000",
-                "min": 0,
-                "max": 99,
-                "text": "Speaker Pieces Scored"
-            },
-            {
-                "type": "bool",
-                "text": "Mobility?"
-            },
-            {
-                "type": "bool",
-                "text": "A-Stopped?"
-            },
-            {
-                "type": "bool",
-                "text": "Went for Neutral Zone?"
-            }
-        ],
-        "tele": [
-            {
-                "type": "int",
-                "color": "#FF0000",
-                "textColor": "#dedede",
-                "min": 0,
-                "max": 99,
-                "text": "Short Acquire"
-            },
-            {
-                "type": "int",
-                "color": "#00FF00",
-                "textColor": "#000000",
-                "min": 0,
-                "max": 99,
-                "text": "Long Acquire"
-            },
-            {
-                "type": "int",
-                "color": "#FF5500",
-                "textColor": "#dedede",
-                "min": 0,
-                "max": 99,
-                "text": "Shuttled Notes"
-            },
-            {
-                "type": "int",
-                "color": "#CCCC00",
-                "textColor": "#000000",
-                "min": 0,
-                "max": 99,
-                "text": "Amp Scored"
-            },
-            {
-                "type": "int",
-                "color": "#fd6bfd",
-                "textColor": "#000000",
-                "min": 0,
-                "max": 99,
-                "text": "Speaker Scored"
-            },
-            {
-                "type": "int",
-                "color": "#0055FF",
-                "textColor": "#dedede",
-                "min": 0,
-                "max": 99,
-                "text": "Missed"
-            },
-            {
-                "type": "bool",
-                "text": "Trap?"
-            },
-            {
-                "type": "bool",
-                "text": "Climb?"
-            },
-            {
-                "type": "bool",
-                "text": "Played Defense?"
-            },
-            {
-                "type": "bool",
-                "text": "Was Defended?"
-            }
-        ],
+        "auto": {
+            "columns": 3,
+            "data": [
+                {
+                    "type": "bool",
+                    "text": "Mobility?",
+                    "columns": 3
+                },
+                {
+                    "type": "int",
+                    "color": "#FF0000",
+                    "textColor": "#dedede",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Coral Scored",
+                    "columns": 3
+                },
+                {
+                    "type": "bool",
+                    "text": "L1?"
+                },
+                {
+                    "type": "bool",
+                    "text": "L2/L3?"
+                },
+                {
+                    "type": "bool",
+                    "text": "L4?"
+                },
+                {
+                    "type": "int",
+                    "color": "#2211DD",
+                    "textColor": "#dedede",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Algae Scored",
+                    "columns": 3
+                },
+                {
+                    "type": "bool",
+                    "text": "Net?"
+                },
+                {
+                    "type": "bool",
+                    "text": "Processor?"
+                }
+            ]
+        },
+        "tele": {
+            "columns": 3,
+            "data": [
+                {
+                    "type": "int",
+                    "color": "#FF0000",
+                    "textColor": "#dedede",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Coral Scored",
+                    "columns": 3
+                },
+                {
+                    "type": "bool",
+                    "text": "L1?"
+                },
+                {
+                    "type": "bool",
+                    "text": "L2/L3?"
+                },
+                {
+                    "type": "bool",
+                    "text": "L4?"
+                },
+                {
+                    "type": "int",
+                    "color": "#2211DD",
+                    "textColor": "#dedede",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Algae Scored",
+                    "columns": 3
+                },
+                {
+                    "type": "bool",
+                    "text": "Net?"
+                },
+                {
+                    "type": "bool",
+                    "text": "Processor?",
+                    "columns": 1
+                },
+                {
+                    "type": "bool",
+                    "text": "Did Defense?"
+                },
+                {
+                    "type": "string",
+                    "text": "Barge",
+                    "columns": 3,
+                    "choices": [
+                        "None",
+                        "Parked",
+                        "Shallow",
+                        "Deep"
+                    ]
+                },
+                {
+                    "type": "int",
+                    "color": "#DDDD11",
+                    "textColor": "#121212",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Minor Fouls",
+                    "columns": 3
+                },
+                {
+                    "type": "int",
+                    "color": "#FFAA22",
+                    "textColor": "#dedede",
+                    "min": 0,
+                    "max": 99,
+                    "text": "Major Fouls",
+                    "columns": 3
+                }
+            ]
+        },
         "scales": [
             {
                 "title": "Driver",

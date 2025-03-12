@@ -5,13 +5,12 @@ import QtQuick.Layouts 6.6
 import QFRCScouter
 
 Rectangle {
-    function clear() {
-        // clear is a no-op here
+    function clear() {// clear is a no-op here
     }
 
     id: matchInfo
 
-    property string initials
+    // property string initials
     property int match: 1
     property int team
     property string station: "Red 1"
@@ -21,7 +20,7 @@ Rectangle {
     color: Constants.bg
 
     function tsv() {
-        return [initials, match, team]
+        return [team, match]
     }
 
     ErrorDialog {
@@ -50,13 +49,14 @@ Rectangle {
 
     Component.onCompleted: {
         if (!platform.isWeb()) {
-            matchData.failed.connect(() => fail.open());
-            matchData.failedWrite.connect(() => failWrite.open());
-            matchData.invalidCode.connect(() => invalidCode.open());
+            matchData.failed.connect(() => fail.open())
+            matchData.failedWrite.connect(() => failWrite.open())
+            matchData.invalidCode.connect(() => invalidCode.open())
             matchData.successful.connect(() => {
-                                             team = matchData.getTeam(station, match)
+                                             team = matchData.getTeam(station,
+                                                                      match)
                                              success.open()
-                                         });
+                                         })
         }
     }
 
@@ -77,7 +77,7 @@ Rectangle {
         }
 
         RowLayout {
-            visible: !platform.isWeb();
+            visible: !platform.isWeb()
             Layout.fillWidth: true
             Layout.preferredHeight: 80 * Constants.scalar
 
@@ -107,16 +107,15 @@ Rectangle {
             }
         }
 
-        LabeledTextField {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 80 * Constants.scalar
+        // LabeledTextField {
+        //     Layout.fillWidth: true
+        //     Layout.preferredHeight: 80 * Constants.scalar
 
-            label: "Scouter Initials"
+        //     label: "Scouter Initials"
 
-            bindTarget: matchInfo
-            bindedProperty: "initials"
-        }
-
+        //     bindTarget: matchInfo
+        //     bindedProperty: "initials"
+        // }
         LabeledSpinBox {
             Layout.fillWidth: true
             Layout.preferredHeight: 80 * Constants.scalar
@@ -147,12 +146,9 @@ Rectangle {
             Layout.preferredHeight: 80 * Constants.scalar
 
             label: "Alliance Station"
-            choices: [
-                "Red 1", "Red 2", "Red 3",
-                "Blue 1", "Blue 2", "Blue 3"
-            ]
+            choices: ["Red 1", "Red 2", "Red 3", "Blue 1", "Blue 2", "Blue 3"]
 
-            onActivated: (index) => team = matchData.getTeam(station, match)
+            onActivated: index => team = matchData.getTeam(station, match)
 
             bindTarget: matchInfo
             bindedProperty: "station"

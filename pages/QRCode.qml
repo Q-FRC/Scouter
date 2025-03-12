@@ -6,7 +6,7 @@ import QFRCScouter
 Rectangle {
     color: Constants.bg
 
-    property list<var> tsv
+    property list<var> tsv: ["blank"]
 
     TitleBanner {
         id: banner
