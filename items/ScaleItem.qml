@@ -38,6 +38,7 @@ ColumnLayout {
 
     RowLayout {
         Layout.fillWidth: true
+        uniformCellSizes: true
         spacing: 2
 
         Repeater {

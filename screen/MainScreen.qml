@@ -26,6 +26,7 @@ Rectangle {
     onHeightChanged: resetScalar()
 
     SwipeView {
+        onCurrentIndexChanged: forceActiveFocus()
         id: swipe
 
         currentIndex: 0
