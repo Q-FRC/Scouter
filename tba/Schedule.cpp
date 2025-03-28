@@ -22,8 +22,6 @@ void Schedule::fromTBA(const QJsonDocument &doc)
         Match match;
         match.fromTBA(ref.toObject());
 
-        qDebug() << (int) match.compLevel();
-
         if (match.compLevel() == CompLevel::Quals) {
             m_matches.append(match);
             m_numberLevelMap.insert(match.compLevel(), match.matchNumber());
