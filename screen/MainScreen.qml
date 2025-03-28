@@ -26,11 +26,11 @@ Rectangle {
     onHeightChanged: resetScalar()
 
     SwipeView {
-        onCurrentIndexChanged: forceActiveFocus()
         id: swipe
 
         currentIndex: 0
 
+        // interactive: false
         anchors {
             top: parent.top
             left: parent.left
@@ -38,6 +38,19 @@ Rectangle {
             bottom: buttons.top
 
             margins: 8
+        }
+
+        onCurrentIndexChanged: {
+            forceActiveFocus()
+
+            if (currentIndex === count - 1) {
+                qr.tsv = getTsv()
+            }
+
+            if (currentItem.doClear) {
+                currentItem.clear()
+                currentItem.doClear = false
+            }
         }
 
         WelcomePage {
@@ -144,10 +157,6 @@ Rectangle {
             onClicked: {
                 ++swipe.currentIndex
 
-                if (swipe.currentIndex === swipe.count - 1) {
-                    qr.tsv = getTsv()
-                }
-
                 if (swipe.currentIndex >= swipe.count) {
                     swipe.currentIndex = 0
                     match.match++
@@ -157,11 +166,6 @@ Rectangle {
                     tele.doClear = true
 
                     welcome.backAvailable = true
-                }
-
-                if (swipe.currentItem.doClear) {
-                    swipe.currentItem.clear()
-                    swipe.currentItem.doClear = false
                 }
             }
         }

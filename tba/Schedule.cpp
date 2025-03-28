@@ -1,6 +1,8 @@
 #include "Schedule.h"
 #include "Match.h"
 
+#include <QJsonDocument>
+
 Schedule::Schedule(QJsonArray object) {
     for (QJsonValueRef ref : object) {
         Match match(ref.toObject());
@@ -12,6 +14,33 @@ Schedule::Schedule(QJsonArray object) {
 
 QList<Match> Schedule::matches() {
     return m_matches;
+}
+
+void Schedule::fromTBA(const QJsonDocument &doc)
+{
+    for (QJsonValueRef ref : doc.array()) {
+        Match match;
+        match.fromTBA(ref.toObject());
+
+        qDebug() << (int) match.compLevel();
+
+        if (match.compLevel() == CompLevel::Quals) {
+            m_matches.append(match);
+            m_numberLevelMap.insert(match.compLevel(), match.matchNumber());
+        }
+    }
+}
+
+QJsonDocument Schedule::toJson()
+{
+    QJsonArray arr;
+    for (Match match : m_matches) {
+        if (match.compLevel() == CompLevel::Quals) {
+            arr.append(match.toJson());
+        }
+    }
+
+    return QJsonDocument(arr);
 }
 
 std::optional<Match> Schedule::getMatch(int matchNumber, CompLevel compLevel) {

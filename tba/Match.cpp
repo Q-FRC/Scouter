@@ -3,6 +3,27 @@
 #include <QJsonArray>
 
 Match::Match(QJsonObject object) {
+    m_matchNumber = object.value("match").toInt(0);
+
+    m_teamMap.insert(object.value("red1").toString(""), AllianceStation::Red1);
+    m_teamMap.insert(object.value("red2").toString(""), AllianceStation::Red2);
+    m_teamMap.insert(object.value("red3").toString(""), AllianceStation::Red3);
+
+    m_teamMap.insert(object.value("blue1").toString(""), AllianceStation::Blue1);
+    m_teamMap.insert(object.value("blue2").toString(""), AllianceStation::Blue2);
+    m_teamMap.insert(object.value("blue3").toString(""), AllianceStation::Blue3);
+}
+
+AllianceStation Match::stationForTeam(const QString &team) {
+    return m_teamMap.value(team, AllianceStation::Invalid);
+}
+
+QString Match::teamForStation(const AllianceStation &station) {
+    return m_teamMap.key(station, "1000");
+}
+
+void Match::fromTBA(const QJsonObject &object)
+{
     QJsonObject alliances = object.value("alliances").toObject();
 
     QJsonObject red = alliances.value("red").toObject();
@@ -26,12 +47,20 @@ Match::Match(QJsonObject object) {
     }
 }
 
-AllianceStation Match::stationForTeam(const QString &team) {
-    return m_teamMap.value(team, AllianceStation::Invalid);
-}
+QJsonObject Match::toJson()
+{
+    QJsonObject obj;
+    obj.insert("match", m_matchNumber);
 
-QString Match::teamForStation(const AllianceStation &station) {
-    return m_teamMap.key(station, "1000");
+    obj.insert("red1", m_teamMap.key(AllianceStation::Red1));
+    obj.insert("red2", m_teamMap.key(AllianceStation::Red2));
+    obj.insert("red3", m_teamMap.key(AllianceStation::Red3));
+
+    obj.insert("blue1", m_teamMap.key(AllianceStation::Blue1));
+    obj.insert("blue2", m_teamMap.key(AllianceStation::Blue2));
+    obj.insert("blue3", m_teamMap.key(AllianceStation::Blue3));
+
+    return obj;
 }
 
 int Match::matchNumber() {

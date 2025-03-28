@@ -39,6 +39,9 @@ public:
     AllianceStation stationForTeam(const QString &team);
     QString teamForStation(const AllianceStation &station);
 
+    void fromTBA(const QJsonObject &object);
+    QJsonObject toJson();
+
     int matchNumber();
     CompLevel compLevel();
 };

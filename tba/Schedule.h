@@ -17,6 +17,10 @@ public:
 
     QList<Match> matches();
 
+    void fromTBA(const QJsonDocument &doc);
+
+    QJsonDocument toJson();
+
     std::optional<Match> getMatch(int matchNumber, CompLevel compLevel);
 
     QList<int> matchesForLevel(CompLevel level);

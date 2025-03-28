@@ -21,7 +21,7 @@ Schedule MatchData::schedule()
 #ifndef Q_OS_WASM
 void MatchData::downloadSchedule(const QString &event)
 {
-    QDir targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    QDir targetDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     // ensure path exists
     targetDir.mkpath(".");
 
@@ -53,9 +53,13 @@ void MatchData::downloadSchedule(const QString &event)
             return;
         }
 
-        file.write(data);
+        Schedule schedule;
+        schedule.fromTBA(QJsonDocument::fromJson(data));
+
+        file.write(schedule.toJson().toJson());
         file.close();
-        reloadSchedule();
+
+        m_schedule = schedule;
 
         emit successful();
     });
